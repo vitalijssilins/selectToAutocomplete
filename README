@@ -1,3 +1,22 @@
+Country autocomplete with flags and interational codes
+Additional options:
+
+'free-insert': false, // if true you are not limited to select options, you can insert any text to input
+'flags': false, // enabling or disabling flag functionality
+'flags-attr': 'data-flag', // attribute for flag images ([flags-attr].png)
+'flags-dir': './flags/', // folder to look for flags
+'flags-default': 'LV', // default flag
+'flags-image-selector':'#flag', // img node which src will be changed to according flag
+'code': false, // enabling or disabling flag functionality
+'code-show': false, // do we show code in another container
+'code-attr': 'data-code', // attribute for international codes of countries
+'code-default': '371', // default international code
+'code-selector':'#code', // container in which code will be inserted
+
+
+
+ORIGINAL description:
+
 Select To Autocomplete: Redesigned Country Selector
 
 An improved way to select a country in web forms.
