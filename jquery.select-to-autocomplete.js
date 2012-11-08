@@ -29,17 +29,31 @@ THE SOFTWARE.
     'sort-attr': 'data-priority',
     'sort-desc': false,
     'autoselect': true,
+    'free-insert': false,
+    'flags': false,
+    'flags-attr': 'data-flag',
+    'flags-dir': './flags/',
+    'flags-default': 'LV',
+    'flags-image-selector':'#flag',
+    'code': false,
+    'code-show': false,
+    'code-attr': 'data-code',
+    'code-default': '371',
+    'code-selector':'#code',
     'alternative-spellings': true,
     'alternative-spellings-attr': 'data-alternative-spellings',
     'remove-valueless-options': true,
     'copy-attributes-to-text-field': true,
     'autocomplete-plugin': 'jquery_ui',
     'relevancy-sorting': true,
-    'relevancy-sorting-partial-match-value': 1,
+    'relevancy-sorting-partial-match-value': 2,
     'relevancy-sorting-strict-match-value': 5,
     'relevancy-sorting-booster-attr': 'data-relevancy-booster',
     handle_invalid_input: function( context ) {
-      context.$text_field.val( context.$select_field.find('option:selected:first').text() );
+         if (!settings['free-insert'])
+      {
+      context.$text_field.val( context.$select_field.find('option:selected:first').val() );
+      }
     },
     handle_select_field: function( $select_field ) {
       return $select_field.hide();
@@ -59,42 +73,67 @@ THE SOFTWARE.
         $text_field.attr( attrs );
       }
       $text_field.blur(function() {
-        var valid_values = context.$select_field.find('option').map(function(i, option) { return $(option).text(); });
+        var valid_values = context.$select_field.find('option').map(function(i, option) { return $(option).val(); });
         if ( !($text_field.val() in valid_values) && typeof settings['handle_invalid_input'] === 'function' ) {
           settings['handle_invalid_input'](context);
         }
       });
+
       // give the input box the ability to select all text on mouse click
       if ( context.settings['autoselect'] ) {
          $text_field.click( function() {
              this.select();
             });
       }
-      return $text_field.val( context.$select_field.find('option:selected:first').text() )
+      return $text_field.val( context.$select_field.find('option:selected:first').val() )
         .insertAfter( context.$select_field );
     },
     extract_options: function( $select_field ) {
       var options = [];
       var $options = $select_field.find('option');
       var number_of_options = $options.length;
-      
+
       // go over each option in the select tag
       $options.each(function(){
         var $option = $(this);
         var option = {
           'real-value': $option.attr('value'),
-          'label': $option.text()
+          'label': $option.val(),
+          'text': $option.text()
         }
         if ( settings['remove-valueless-options'] && option['real-value'] === '') {
           // skip options without a value
         } else {
+
+          // prepare flag
+          option['flag'] = option['flags-default'];
+          var flag = $option.attr( settings['flags-attr'] );
+          if (flag)
+          {
+              option['flag'] = flag;
+          }
+
+          // prepare international code
+          option['code'] = option['code-default'];
+          var code = $option.attr( settings['code-attr'] );
+          if (code)
+          {
+              option['code'] = code;
+          }
+
           // prepare the 'matches' string which must be filtered on later
           option['matches'] = option['label'];
           var alternative_spellings = $option.attr( settings['alternative-spellings-attr'] );
           if ( alternative_spellings ) {
             option['matches'] += ' ' + alternative_spellings;
+            // adding international code to matches
+            if (code)
+            {
+                option['matches'] += ' 00' + code + ' +' + code + ' ' + code;
+            }
           }
-          // give each option a weight paramter for sorting
+
+          // give each option a weight parameter for sorting
           if ( settings['sort'] ) {
             var weight = parseInt( $option.attr( settings['sort-attr'] ), 10 );
             if ( weight ) {
@@ -103,6 +142,7 @@ THE SOFTWARE.
               option['weight'] = number_of_options;
             }
           }
+
           // add relevancy score
           if ( settings['relevancy-sorting'] ) {
             option['relevancy-score'] = 0;
@@ -124,26 +164,26 @@ THE SOFTWARE.
           options.sort( function( a, b ) { return a['weight'] - b['weight']; } );
         }
       }
-      
+
       // return the set of options, each with the following attributes: real-value, label, matches, weight (optional)
       return options;
     }
   };
-  
+
   var public_methods = {
     init: function( customizations ) {
-      
+
       if ( $.browser.msie && parseInt($.browser.version, 10) <= 6) {
-        
+
         return this;
-        
+
       } else {
-        
+
         settings = $.extend( settings, customizations );
 
         return this.each(function(){
           var $select_field = $(this);
-          
+
           var context = {
             '$select_field': $select_field,
             'options': settings['extract_options']( $select_field ),
@@ -151,21 +191,21 @@ THE SOFTWARE.
           };
 
           context['$text_field'] = settings['insert_text_field']( context );
-          
+
           settings['handle_select_field']( $select_field );
-          
+
           if ( typeof settings['autocomplete-plugin'] === 'string' ) {
             adapters[settings['autocomplete-plugin']]( context );
           } else {
             settings['autocomplete-plugin']( context );
           }
         });
-        
+
       }
-      
+
     }
   };
-  
+
   var adapters = {
     jquery_ui: function( context ) {
       // loose matching of search terms
@@ -182,7 +222,7 @@ THE SOFTWARE.
             matchers.push( matcher );
           }
         };
-        
+
         return $.grep( context.options, function( option ) {
           var partial_matches = 0;
           if ( context.settings['relevancy-sorting'] ) {
@@ -202,7 +242,7 @@ THE SOFTWARE.
               };
             }
           };
-          if ( context.settings['relevancy-sorting'] ) {
+          if ( context.settings['relevancy-sorting']) {
             var option_score = 0;
             option_score += partial_matches * context.settings['relevancy-sorting-partial-match-value'];
             if ( strict_match ) {
@@ -213,12 +253,55 @@ THE SOFTWARE.
           }
           return (!term || matchers.length === partial_matches );
         });
+
+      }
+
+      // simple bubblesort, because JS sort function is not working properly in Chrome
+      var bubbleSort = function (arr)
+      {
+          var swapped;
+        do {
+            swapped = false;
+            for (var i=0; i < arr.length-1; i++) {
+                if (arr[i]['relevancy-score'] < arr[i+1]['relevancy-score']) {
+                    var temp = arr[i];
+                    arr[i] = arr[i+1];
+                    arr[i+1] = temp;
+                    swapped = true;
+                }
+            }
+         } while (swapped);
+
+         return arr;
+      }
+
+      var update_flag = function ( option ) {
+          // changing flag
+        if (context.settings['flags'] && (typeof (option) !== 'undefined') )
+        {
+            $(context.settings['flags-image-selector']).attr('src', context.settings['flags-dir'] + option['flag'] + '.png');
+        }
       }
       // update the select field value using either selected option or current input in the text field
       var update_select_value = function( option ) {
         if ( option ) {
           if ( context.$select_field.val() !== option['real-value'] ) {
             context.$select_field.val( option['real-value'] );
+
+            update_flag( option );
+
+            // changing international code
+            if (context.settings['code'] && context.settings['code-show'])
+            {
+                if (option['code'])
+                {
+                    $(context.settings['code-selector']).text('+' + option['code']);
+                } else {
+                    $(context.settings['code-selector']).text('+' + context.settings['code-default']);
+                }
+
+            }
+
             context.$select_field.change();
           }
         } else {
@@ -236,6 +319,7 @@ THE SOFTWARE.
           }
           if ( matching_option['real-value'] ) {
             context.$text_field.val( matching_option['label'] );
+
           }
           if ( typeof context.settings['handle_invalid_input'] === 'function' && context.$select_field.val() === '' ) {
             context.settings['handle_invalid_input']( context );
@@ -249,24 +333,50 @@ THE SOFTWARE.
         'autoFocus': true,
         source: function( request, response ) {
           var filtered_options = filter_options( request.term );
+          console.log(filtered_options);
           if ( context.settings['relevancy-sorting'] ) {
-            filtered_options = filtered_options.sort( function( a, b ) { return b['relevancy-score'] - a['relevancy-score']; } );
+               filtered_options = bubbleSort(filtered_options);
+               //filtered_options = filtered_options.sort( function( a, b ) { return b['relevancy-score'] - a['relevancy-score']; } );
           }
           response( filtered_options );
+          update_flag( filtered_options[0] );
         },
         select: function( event, ui ) {
           update_select_value( ui.item );
         },
         change: function( event, ui ) {
           update_select_value( ui.item );
+        },
+        search: function (event, ui) {
+
         }
-      });
+      }).data( "autocomplete" )._renderItem = function( ul, item ) {
+              if (item.code)
+              {
+                return $( "<li>" )
+                    .data( "item.autocomplete", item )
+                    .append( "<a><div class=\"flag-img\"><img src=\"./flags/"+item.flag+".png\" /></div><p class=\"country-name\">"+item.text+"</p><p class=\"country-code\">+"+item.code+"</p></a><div style=\"clear:both\"></div>")
+                    .appendTo( ul );
+              } else {
+                  return $( "<li>" )
+                    .data( "item.autocomplete", item )
+                    .append( "<a><div class=\"flag-img\"><img src=\"./flags/"+item.flag+".png\" /></div><p class=\"country-name\">"+item.text+"</p><p class=\"country-code\">&nbsp;</p></a><div style=\"clear:both\"></div>")
+                    .appendTo( ul );
+              }
+      };
       // force refresh value of select field when form is submitted
       context.$text_field.parents('form:first').submit(function(){
         update_select_value();
       });
       // select current value
       update_select_value();
+
+      // open full autocomplete when clicked on flag
+      if (context.settings['flags']) {
+          $(context.settings['flags-image-selector']).click(function () {
+              context.$text_field.autocomplete( "search", "" );
+          });
+      }
     }
   };
 
@@ -277,7 +387,7 @@ THE SOFTWARE.
       return public_methods.init.apply( this, arguments );
     } else {
       $.error( 'Method ' +  method + ' does not exist on jQuery.fn.selectToAutocomplete' );
-    }    
+    }
   };
-  
-})(jQuery); 
+
+})(jQuery);
