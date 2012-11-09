@@ -7,7 +7,7 @@ Additional options:
 'flags-dir': './flags/', // folder to look for flags
 'flags-default': 'LV', // default flag
 'flags-image-selector':'#flag', // img node which src will be changed to according flag
-'code': false, // enabling or disabling flag functionality
+'code': false, // enabling or disabling code functionality
 'code-show': false, // do we show code in another container
 'code-attr': 'data-code', // attribute for international codes of countries
 'code-default': '371', // default international code

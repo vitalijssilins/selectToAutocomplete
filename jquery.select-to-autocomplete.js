@@ -333,22 +333,24 @@ THE SOFTWARE.
         'autoFocus': true,
         source: function( request, response ) {
           var filtered_options = filter_options( request.term );
-          console.log(filtered_options);
           if ( context.settings['relevancy-sorting'] ) {
                filtered_options = bubbleSort(filtered_options);
                //filtered_options = filtered_options.sort( function( a, b ) { return b['relevancy-score'] - a['relevancy-score']; } );
           }
           response( filtered_options );
-          update_flag( filtered_options[0] );
+          if (request.term) {
+            update_flag( filtered_options[0] );
+          };
         },
         select: function( event, ui ) {
           update_select_value( ui.item );
+          var filtered_options = [ui.item];
+          update_flag( filtered_options[0] );
         },
         change: function( event, ui ) {
           update_select_value( ui.item );
         },
         search: function (event, ui) {
-
         }
       }).data( "autocomplete" )._renderItem = function( ul, item ) {
               if (item.code)
