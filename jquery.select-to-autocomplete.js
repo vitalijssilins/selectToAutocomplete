@@ -355,12 +355,12 @@ THE SOFTWARE.
               {
                 return $( "<li>" )
                     .data( "item.autocomplete", item )
-                    .append( "<a><div class=\"flag-img\"><img src=\"./flags/"+item.flag+".png\" /></div><p class=\"country-name\">"+item.text+"</p><p class=\"country-code\">+"+item.code+"</p></a><div style=\"clear:both\"></div>")
+                    .append( "<a><div class=\"flag-img\"><img src=\""+context.settings['flags-dir']+item.flag+".png\" /></div><p class=\"country-name\">"+item.text+"</p><p class=\"country-code\">+"+item.code+"</p></a><div style=\"clear:both\"></div>")
                     .appendTo( ul );
               } else {
                   return $( "<li>" )
                     .data( "item.autocomplete", item )
-                    .append( "<a><div class=\"flag-img\"><img src=\"./flags/"+item.flag+".png\" /></div><p class=\"country-name\">"+item.text+"</p><p class=\"country-code\">&nbsp;</p></a><div style=\"clear:both\"></div>")
+                    .append( "<a><div class=\"flag-img\"><img src=\""+context.settings['flags-dir']+item.flag+".png\" /></div><p class=\"country-name\">"+item.text+"</p><p class=\"country-code\">&nbsp;</p></a><div style=\"clear:both\"></div>")
                     .appendTo( ul );
               }
       };
