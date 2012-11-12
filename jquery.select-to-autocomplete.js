@@ -43,6 +43,7 @@ THE SOFTWARE.
     'price': false,
     'price-attr': 'data-price',
     'price-default': '0',
+    'price-currency': '&euro;',
     'alternative-spellings': true,
     'alternative-spellings-attr': 'data-alternative-spellings',
     'remove-valueless-options': true,
@@ -120,7 +121,7 @@ THE SOFTWARE.
 
           if (settings['code']) {
               // prepare international code
-              option['code'] = option['code-default'];
+              option['code'] = settings['code-default'];
               var code = $option.attr( settings['code-attr'] );
               if (code)
               {
@@ -130,7 +131,7 @@ THE SOFTWARE.
 
           if (settings['price']) {
               // prepare price code
-              option['price'] = option['price-default'];
+              option['price'] = settings['price-default'];
               var price = $option.attr( settings['price-attr'] );
               if (price)
               {
@@ -184,6 +185,11 @@ THE SOFTWARE.
 
       // return the set of options, each with the following attributes: real-value, label, matches, weight (optional)
       return options;
+    },
+    // callback
+    source: function (request, response) {
+    },
+    select: function (event, ui) {
     }
   };
 
@@ -196,7 +202,7 @@ THE SOFTWARE.
 
       } else {
 
-        settings = $.extend( settings, customizations );
+        settings = $.extend( {}, settings, customizations );
 
         return this.each(function(){
           var $select_field = $(this);
@@ -343,12 +349,13 @@ THE SOFTWARE.
           }
         }
       }
+      var widgetVisible = false;
       // jQuery UI autocomplete settings & behavior
       context.$text_field.autocomplete({
         'minLength': 0,
         'delay': 0,
         'autoFocus': true,
-        position: { left: '-100px' },
+        position: { my : "left+150 top", at: "left bottom" },
         source: function( request, response ) {
           var filtered_options = filter_options( request.term );
           if ( context.settings['relevancy-sorting'] ) {
@@ -359,11 +366,13 @@ THE SOFTWARE.
           if (request.term) {
             update_flag( filtered_options[0] );
           };
+          context.settings['source']( request, filtered_options );
         },
         select: function( event, ui ) {
           update_select_value( ui.item );
           var filtered_options = [ui.item];
           update_flag( filtered_options[0] );
+          context.settings['select']( event, ui );
         },
         open: function ( event, ui ) {
           widgetVisible = true;
@@ -377,26 +386,36 @@ THE SOFTWARE.
         search: function (event, ui) {
         }
       }).data( "autocomplete" )._renderItem = function( ul, item ) {
-          if (item.code && item.price && context.settings['code'] && context.settings['price'])
+          if (context.settings['flags'] && context.settings['code'] && context.settings['price'])
           {
                 return $( "<li>" )
                     .data( "item.autocomplete", item )
-                    .append( "<a><div class=\"flag-img\"><img src=\""+context.settings['flags-dir']+item.flag+".png\" /></div><p class=\"country-name\">"+item.text+"</p><p class=\"country-code\">+"+item.code+"</p><p class=\"price\">"+item.price+"</p></a><div style=\"clear:both\"></div>")
+                    .append( "<a><div class=\"flag-img\"><img src=\""+context.settings['flags-dir']+item.flag+".png\" /></div><p class=\"country-name\">"+item.text+"</p><p class=\"country-code\">+"+item.code+"</p><p class=\"country-price\">"+context.settings['price-currency']+' '+item.price+"</p></a><div style=\"clear:both\"></div>")
                     .appendTo( ul );
-          } else if (item.code && context.settings['code']) {
+          } else if (context.settings['flags'] && context.settings['code'] && !context.settings['price']) {
                 return $( "<li>" )
                     .data( "item.autocomplete", item )
                     .append( "<a><div class=\"flag-img\"><img src=\""+context.settings['flags-dir']+item.flag+".png\" /></div><p class=\"country-name\">"+item.text+"</p><p class=\"country-code\">+"+item.code+"</p></a><div style=\"clear:both\"></div>")
                     .appendTo( ul );
-          } else if (item.price && context.settings['price']) {
+          } else if (context.settings['flags'] && !context.settings['code']  && !context.settings['price']) {
                 return $( "<li>" )
                     .data( "item.autocomplete", item )
-                    .append( "<a><div class=\"flag-img\"><img src=\""+context.settings['flags-dir']+item.flag+".png\" /></div><p class=\"country-name\">"+item.text+"</p><p class=\"price\">"+item.price+"</p></a><div style=\"clear:both\"></div>")
+                    .append( "<a><div class=\"flag-img\"><img src=\""+context.settings['flags-dir']+item.flag+".png\" /></div><p class=\"country-name\">"+item.text+"</p><p class=\"country-price\">"+context.settings['price-currency']+' '+item.price+"</p></a><div style=\"clear:both\"></div>")
+                    .appendTo( ul );
+          } else if (!context.settings['flags'] && context.settings['code']  && context.settings['price']) {
+                return $( "<li>" )
+                    .data( "item.autocomplete", item )
+                    .append( "<a><p class=\"country-name\">"+item.text+"</p><p class=\"country-code\">+"+item.code+"</p><p class=\"country-price\">"+context.settings['price-currency']+' '+item.price+"</p></a><div style=\"clear:both\"></div>")
+                    .appendTo( ul );
+          } else if (!context.settings['flags'] && !context.settings['code']  && context.settings['price']) {
+                return $( "<li>" )
+                    .data( "item.autocomplete", item )
+                    .append( "<a><p class=\"country-name\">"+item.text+"</p><p class=\"country-price\">"+context.settings['price-currency']+' '+item.price+"</p></a><div style=\"clear:both\"></div>")
                     .appendTo( ul );
           } else {
                   return $( "<li>" )
                     .data( "item.autocomplete", item )
-                    .append( "<a><div class=\"flag-img\"><img src=\""+context.settings['flags-dir']+item.flag+".png\" /></div><p class=\"country-name\">"+item.text+"</p><p class=\"country-code\">&nbsp;</p></a><div style=\"clear:both\"></div>")
+                    .append( "<a><p class=\"country-name\">"+item.text+"</p></a><div style=\"clear:both\"></div>")
                     .appendTo( ul );
           }
       };
