@@ -40,6 +40,9 @@ THE SOFTWARE.
     'code-attr': 'data-code',
     'code-default': '371',
     'code-selector':'#code',
+    'price': false,
+    'price-attr': 'data-price',
+    'price-default': '0',
     'alternative-spellings': true,
     'alternative-spellings-attr': 'data-alternative-spellings',
     'remove-valueless-options': true,
@@ -50,7 +53,7 @@ THE SOFTWARE.
     'relevancy-sorting-strict-match-value': 5,
     'relevancy-sorting-booster-attr': 'data-relevancy-booster',
     handle_invalid_input: function( context ) {
-         if (!settings['free-insert'])
+      if (!settings['free-insert'])
       {
       context.$text_field.val( context.$select_field.find('option:selected:first').val() );
       }
@@ -105,20 +108,34 @@ THE SOFTWARE.
           // skip options without a value
         } else {
 
-          // prepare flag
-          option['flag'] = option['flags-default'];
-          var flag = $option.attr( settings['flags-attr'] );
-          if (flag)
-          {
-              option['flag'] = flag;
+          if (settings['flags']) {
+              // prepare flag
+              option['flag'] = option['flags-default'];
+              var flag = $option.attr( settings['flags-attr'] );
+              if (flag)
+              {
+                  option['flag'] = flag;
+              }
           }
 
-          // prepare international code
-          option['code'] = option['code-default'];
-          var code = $option.attr( settings['code-attr'] );
-          if (code)
-          {
-              option['code'] = code;
+          if (settings['code']) {
+              // prepare international code
+              option['code'] = option['code-default'];
+              var code = $option.attr( settings['code-attr'] );
+              if (code)
+              {
+                  option['code'] = code;
+              }
+          }
+
+          if (settings['price']) {
+              // prepare price code
+              option['price'] = option['price-default'];
+              var price = $option.attr( settings['price-attr'] );
+              if (price)
+              {
+                  option['price'] = price;
+              }
           }
 
           // prepare the 'matches' string which must be filtered on later
@@ -331,6 +348,7 @@ THE SOFTWARE.
         'minLength': 0,
         'delay': 0,
         'autoFocus': true,
+        position: { left: '-100px' },
         source: function( request, response ) {
           var filtered_options = filter_options( request.term );
           if ( context.settings['relevancy-sorting'] ) {
@@ -347,24 +365,40 @@ THE SOFTWARE.
           var filtered_options = [ui.item];
           update_flag( filtered_options[0] );
         },
+        open: function ( event, ui ) {
+          widgetVisible = true;
+        },
+        close: function ( event, ui ) {
+          widgetVisible = false;
+        },
         change: function( event, ui ) {
           update_select_value( ui.item );
         },
         search: function (event, ui) {
         }
       }).data( "autocomplete" )._renderItem = function( ul, item ) {
-              if (item.code)
-              {
+          if (item.code && item.price && context.settings['code'] && context.settings['price'])
+          {
+                return $( "<li>" )
+                    .data( "item.autocomplete", item )
+                    .append( "<a><div class=\"flag-img\"><img src=\""+context.settings['flags-dir']+item.flag+".png\" /></div><p class=\"country-name\">"+item.text+"</p><p class=\"country-code\">+"+item.code+"</p><p class=\"price\">"+item.price+"</p></a><div style=\"clear:both\"></div>")
+                    .appendTo( ul );
+          } else if (item.code && context.settings['code']) {
                 return $( "<li>" )
                     .data( "item.autocomplete", item )
                     .append( "<a><div class=\"flag-img\"><img src=\""+context.settings['flags-dir']+item.flag+".png\" /></div><p class=\"country-name\">"+item.text+"</p><p class=\"country-code\">+"+item.code+"</p></a><div style=\"clear:both\"></div>")
                     .appendTo( ul );
-              } else {
+          } else if (item.price && context.settings['price']) {
+                return $( "<li>" )
+                    .data( "item.autocomplete", item )
+                    .append( "<a><div class=\"flag-img\"><img src=\""+context.settings['flags-dir']+item.flag+".png\" /></div><p class=\"country-name\">"+item.text+"</p><p class=\"price\">"+item.price+"</p></a><div style=\"clear:both\"></div>")
+                    .appendTo( ul );
+          } else {
                   return $( "<li>" )
                     .data( "item.autocomplete", item )
                     .append( "<a><div class=\"flag-img\"><img src=\""+context.settings['flags-dir']+item.flag+".png\" /></div><p class=\"country-name\">"+item.text+"</p><p class=\"country-code\">&nbsp;</p></a><div style=\"clear:both\"></div>")
                     .appendTo( ul );
-              }
+          }
       };
       // force refresh value of select field when form is submitted
       context.$text_field.parents('form:first').submit(function(){
@@ -376,7 +410,11 @@ THE SOFTWARE.
       // open full autocomplete when clicked on flag
       if (context.settings['flags']) {
           $(context.settings['flags-image-selector']).click(function () {
+            if (widgetVisible) {
+              context.$text_field.autocomplete( "close" );
+            } else {
               context.$text_field.autocomplete( "search", "" );
+              }
           });
       }
     }

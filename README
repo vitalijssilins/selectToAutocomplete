@@ -12,7 +12,12 @@ Additional options:
 'code-attr': 'data-code', // attribute for international codes of countries
 'code-default': '371', // default international code
 'code-selector':'#code', // container in which code will be inserted
-
+'price': false, // enabling or disabling price functionality
+'price-attr': 'data-price', // attribute for price
+'price-default': '0', // default price
+'price-currency': '&euro;', currency for price
+source: function (request, response) {}, // calback, when source is called (before rendering, to get selected item, use response[0])
+select: function (event, ui) {} // callback, when item selected explicly ( to get selected item, use ui.item)
 
 
 ORIGINAL description:
