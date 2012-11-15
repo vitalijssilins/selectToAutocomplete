@@ -14,6 +14,8 @@
                   'free-insert': true,
                   'flags': true,
                   'flags-image-selector': '#flag',
+                  'contacts': true,
+                  'contacts-renderer': '<a><div class="flag-img"><img src="{flag}" /></div><p class="country-name">Contact - {name}</p><p class="country-code">+{code}</p><p class="country-price">{currency} {price}</p></a><div style="clear:both"></div>',
                   'code': true,
                   'price': true,
                   'price-default': '0.10',
@@ -29,7 +31,6 @@
                       console.log(ui.item);
                   }
           });
-          $('#country-selector2').selectToAutocomplete({'free-insert': true, 'flags': true,  'flags-image-selector': '#flag2',  'code': true, 'price': true, 'price-default': '0.10', 'price-currency': '&euro;'});
 
           $('form').submit(function(){
             alert( $(this).serialize() );
@@ -121,512 +122,256 @@
   <form>
       <img id="flag" src="./flags/LV.png" />
     <select name="Country" id="country-selector" autofocus="autofocus" autocorrect="off" autocomplete="off">
-      <option value="Afghanistan" data-flag="AF" data-alternative-spellings="AF افغانستان">Afghanistan</option>
-      <option value="Åland Islands" data-flag="AX" data-alternative-spellings="AX Aaland Aland" data-relevancy-booster="0.5">Åland Islands</option>
-      <option value="Albania" data-flag="AL" data-alternative-spellings="AL">Albania</option>
-      <option value="Algeria" data-flag="DZ" data-alternative-spellings="DZ الجزائر">Algeria</option>
-      <option value="American Samoa" data-flag="AS" data-alternative-spellings="AS" data-relevancy-booster="0.5">American Samoa</option>
-      <option value="Andorra" data-flag="AD" data-alternative-spellings="AD" data-relevancy-booster="0.5">Andorra</option>
-      <option value="Angola" data-flag="AO" data-alternative-spellings="AO">Angola</option>
-      <option value="Anguilla" data-flag="AI" data-alternative-spellings="AI" data-relevancy-booster="0.5">Anguilla</option>
-      <option value="Antarctica" data-flag="AQ" data-alternative-spellings="AQ" data-relevancy-booster="0.5">Antarctica</option>
-      <option value="Antigua And Barbuda" data-flag="AG" data-alternative-spellings="AG" data-relevancy-booster="0.5">Antigua And Barbuda</option>
-      <option value="Argentina" data-flag="AR" data-alternative-spellings="AR">Argentina</option>
-      <option value="Armenia" data-flag="AM" data-alternative-spellings="AM Հայաստան">Armenia</option>
-      <option value="Aruba" data-flag="AW" data-alternative-spellings="AW" data-relevancy-booster="0.5">Aruba</option>
-      <option value="Australia" data-flag="AU" data-alternative-spellings="AU" data-relevancy-booster="1.5">Australia</option>
-      <option value="Austria" data-flag="AT" data-alternative-spellings="AT Österreich Osterreich Oesterreich ">Austria</option>
-      <option value="Azerbaijan" data-flag="AZ" data-alternative-spellings="AZ">Azerbaijan</option>
-      <option value="Bahamas" data-flag="BS" data-alternative-spellings="BS">Bahamas</option>
-      <option value="Bahrain" data-flag="BH" data-alternative-spellings="BH البحرين">Bahrain</option>
-      <option value="Bangladesh" data-flag="BD" data-alternative-spellings="BD বাংলাদেশ" data-relevancy-booster="2">Bangladesh</option>
-      <option value="Barbados" data-flag="BB" data-alternative-spellings="BB">Barbados</option>
-      <option value="Belarus" data-flag="BY" data-alternative-spellings="BY Беларусь">Belarus</option>
-      <option value="Belgium" data-flag="BE" data-alternative-spellings="BE België Belgie Belgien Belgique" data-relevancy-booster="1.5">Belgium</option>
-      <option value="Belize" data-flag="BZ" data-alternative-spellings="BZ">Belize</option>
-      <option value="Benin" data-flag="BJ" data-alternative-spellings="BJ">Benin</option>
-      <option value="Bermuda" data-flag="BM" data-alternative-spellings="BM" data-relevancy-booster="0.5">Bermuda</option>
-      <option value="Bhutan" data-flag="BT" data-alternative-spellings="BT भूटान">Bhutan</option>
-      <option value="Bolivia" data-flag="BO" data-alternative-spellings="BO">Bolivia</option>
-      <option value="Bonaire, Sint Eustatius and Saba" data-flag="BQ" data-alternative-spellings="BQ">Bonaire, Sint Eustatius and Saba</option>
-      <option value="Bosnia and Herzegovina" data-flag="BA" data-alternative-spellings="BA Босна и Херцеговина">Bosnia and Herzegovina</option>
-      <option value="Botswana" data-flag="BW" data-alternative-spellings="BW">Botswana</option>
-      <option value="Bouvet Island" data-flag="BV" data-alternative-spellings="BV">Bouvet Island</option>
-      <option value="Brazil" data-flag="BR" data-alternative-spellings="BR Brasil" data-relevancy-booster="2">Brazil</option>
-      <option value="British Indian Ocean Territory" data-flag="IO" data-alternative-spellings="IO">British Indian Ocean Territory</option>
-      <option value="Brunei Darussalam" data-flag="BN" data-alternative-spellings="BN">Brunei Darussalam</option>
-      <option value="Bulgaria" data-flag="BG" data-alternative-spellings="BG България">Bulgaria</option>
-      <option value="Burkina Faso" data-flag="BF" data-alternative-spellings="BF">Burkina Faso</option>
-      <option value="Burundi" data-flag="BI" data-alternative-spellings="BI">Burundi</option>
-      <option value="Cambodia" data-flag="KH" data-alternative-spellings="KH កម្ពុជា">Cambodia</option>
-      <option value="Cameroon" data-flag="CM" data-alternative-spellings="CM">Cameroon</option>
-      <option value="Canada" data-flag="CA" data-alternative-spellings="CA" data-relevancy-booster="2">Canada</option>
-      <option value="Cape Verde" data-flag="CV" data-alternative-spellings="CV Cabo">Cape Verde</option>
-      <option value="Cayman Islands" data-flag="KY" data-alternative-spellings="KY" data-relevancy-booster="0.5">Cayman Islands</option>
-      <option value="Central African Republic" data-flag="CF" data-alternative-spellings="CF">Central African Republic</option>
-      <option value="Chad" data-flag="TD" data-alternative-spellings="TD تشاد‎ Tchad">Chad</option>
-      <option value="Chile" data-flag="CL" data-alternative-spellings="CL">Chile</option>
-      <option value="China" data-relevancy-booster="3.5" data-flag="CN" data-alternative-spellings="CN Zhongguo Zhonghua Peoples Republic 中国/中华">China</option>
-      <option value="Christmas Island" data-flag="CX" data-alternative-spellings="CX" data-relevancy-booster="0.5">Christmas Island</option>
-      <option value="Cocos (Keeling) Islands" data-flag="CC" data-alternative-spellings="CC" data-relevancy-booster="0.5">Cocos (Keeling) Islands</option>
-      <option value="Colombia" data-flag="CO" data-alternative-spellings="CO">Colombia</option>
-      <option value="Comoros" data-flag="KM" data-alternative-spellings="KM جزر القمر">Comoros</option>
-      <option value="Congo" data-flag="CG" data-alternative-spellings="CG">Congo</option>
-      <option value="Congo, the Democratic Republic of the" data-flag="CD" data-alternative-spellings="CD Congo-Brazzaville Repubilika ya Kongo">Congo, the Democratic Republic of the</option>
-      <option value="Cook Islands" data-flag="CK" data-alternative-spellings="CK" data-relevancy-booster="0.5">Cook Islands</option>
-      <option value="Costa Rica" data-flag="CR" data-alternative-spellings="CR">Costa Rica</option>
-      <option value="Côte d'Ivoire" data-flag="CI" data-alternative-spellings="CI Cote dIvoire">Côte d'Ivoire</option>
-      <option value="Croatia" data-flag="HR" data-alternative-spellings="HR Hrvatska">Croatia</option>
-      <option value="Cuba" data-flag="CU" data-alternative-spellings="CU">Cuba</option>
-      <option value="Curaçao" data-flag="CW" data-alternative-spellings="CW Curacao">Curaçao</option>
-      <option value="Cyprus" data-flag="CY" data-alternative-spellings="CY Κύπρος Kýpros Kıbrıs">Cyprus</option>
-      <option value="Czech Republic" data-flag="CZ" data-alternative-spellings="CZ Česká Ceska">Czech Republic</option>
-      <option value="Denmark" data-flag="DK" data-alternative-spellings="DK Danmark" data-relevancy-booster="1.5">Denmark</option>
-      <option value="Djibouti" data-flag="DJ" data-alternative-spellings="DJ جيبوتي‎ Jabuuti Gabuuti">Djibouti</option>
-      <option value="Dominica" data-flag="DM" data-alternative-spellings="DM Dominique" data-relevancy-booster="0.5">Dominica</option>
-      <option value="Dominican Republic" data-flag="DO" data-alternative-spellings="DO">Dominican Republic</option>
-      <option value="Ecuador" data-flag="EC" data-alternative-spellings="EC">Ecuador</option>
-      <option value="Egypt" data-flag="EG" data-alternative-spellings="EG" data-relevancy-booster="1.5">Egypt</option>
-      <option value="El Salvador" data-flag="SV" data-alternative-spellings="SV">El Salvador</option>
-      <option value="Equatorial Guinea" data-flag="GQ" data-alternative-spellings="GQ">Equatorial Guinea</option>
-      <option value="Eritrea" data-flag="ER" data-alternative-spellings="ER إرتريا ኤርትራ">Eritrea</option>
-      <option value="Estonia" data-flag="EE" data-alternative-spellings="EE Eesti">Estonia</option>
-      <option value="Ethiopia" data-flag="ET" data-alternative-spellings="ET ኢትዮጵያ">Ethiopia</option>
-      <option value="Falkland Islands (Malvinas)" data-flag="FK" data-alternative-spellings="FK" data-relevancy-booster="0.5">Falkland Islands (Malvinas)</option>
-      <option value="Faroe Islands" data-flag="FO" data-alternative-spellings="FO Føroyar Færøerne" data-relevancy-booster="0.5">Faroe Islands</option>
-      <option value="Fiji" data-flag="FJ" data-alternative-spellings="FJ Viti फ़िजी">Fiji</option>
-      <option value="Finland" data-flag="FI" data-alternative-spellings="FI Suomi">Finland</option>
-      <option value="France" data-flag="FR" data-alternative-spellings="FR République française" data-relevancy-booster="2.5">France</option>
-      <option value="French Guiana" data-flag="GF" data-alternative-spellings="GF">French Guiana</option>
-      <option value="French Polynesia" data-flag="PF" data-alternative-spellings="PF Polynésie française">French Polynesia</option>
-      <option value="French Southern Territories" data-flag="TF" data-alternative-spellings="TF">French Southern Territories</option>
-      <option value="Gabon" data-flag="GA" data-alternative-spellings="GA République Gabonaise">Gabon</option>
-      <option value="Gambia" data-flag="GM" data-alternative-spellings="GM">Gambia</option>
-      <option value="Georgia" data-flag="GE" data-alternative-spellings="GE საქართველო">Georgia</option>
-      <option value="Germany" data-flag="DE" data-alternative-spellings="DE Bundesrepublik Deutschland" data-relevancy-booster="3">Germany</option>
-      <option value="Ghana" data-flag="GH" data-alternative-spellings="GH">Ghana</option>
-      <option value="Gibraltar" data-flag="GI" data-alternative-spellings="GI" data-relevancy-booster="0.5">Gibraltar</option>
-      <option value="Greece" data-flag="GR" data-alternative-spellings="GR Ελλάδα" data-relevancy-booster="1.5">Greece</option>
-      <option value="Greenland" data-flag="GL" data-alternative-spellings="GL grønland" data-relevancy-booster="0.5">Greenland</option>
-      <option value="Grenada" data-flag="GD" data-alternative-spellings="GD">Grenada</option>
-      <option value="Guadeloupe" data-flag="GP" data-alternative-spellings="GP">Guadeloupe</option>
-      <option value="Guam" data-flag="GU" data-alternative-spellings="GU">Guam</option>
-      <option value="Guatemala" data-flag="GT" data-alternative-spellings="GT">Guatemala</option>
-      <option value="Guernsey" data-flag="GG" data-alternative-spellings="GG" data-relevancy-booster="0.5">Guernsey</option>
-      <option value="Guinea" data-flag="GN" data-alternative-spellings="GN">Guinea</option>
-      <option value="Guinea-Bissau" data-flag="GW" data-alternative-spellings="GW">Guinea-Bissau</option>
-      <option value="Guyana" data-flag="GY" data-alternative-spellings="GY">Guyana</option>
-      <option value="Haiti" data-flag="HT" data-alternative-spellings="HT">Haiti</option>
-      <option value="Heard Island and McDonald Islands" data-flag="HM" data-alternative-spellings="HM">Heard Island and McDonald Islands</option>
-      <option value="Holy See (Vatican City State)" data-flag="VA" data-alternative-spellings="VA" data-relevancy-booster="0.5">Holy See (Vatican City State)</option>
-      <option value="Honduras" data-flag="HN" data-alternative-spellings="HN">Honduras</option>
-      <option value="Hong Kong" data-flag="HK" data-alternative-spellings="HK 香港">Hong Kong</option>
-      <option value="Hungary" data-flag="HU" data-alternative-spellings="HU Magyarország">Hungary</option>
-      <option value="Iceland" data-flag="IS" data-alternative-spellings="IS Island">Iceland</option>
-      <option value="India" data-flag="IN" data-alternative-spellings="IN भारत गणराज्य Hindustan" data-relevancy-booster="3">India</option>
-      <option value="Indonesia" data-flag="ID" data-alternative-spellings="ID" data-relevancy-booster="2">Indonesia</option>
-      <option value="Iran, Islamic Republic of" data-flag="IR" data-alternative-spellings="IR ایران">Iran, Islamic Republic of</option>
-      <option value="Iraq" data-flag="IQ" data-alternative-spellings="IQ العراق‎">Iraq</option>
-      <option value="Ireland" data-flag="IE" data-alternative-spellings="IE Éire" data-relevancy-booster="1.2">Ireland</option>
-      <option value="Isle of Man" data-flag="IM" data-alternative-spellings="IM" data-relevancy-booster="0.5">Isle of Man</option>
-      <option value="Israel" data-flag="IL" data-alternative-spellings="IL إسرائيل ישראל">Israel</option>
-      <option value="Italy" data-flag="IT" data-alternative-spellings="IT Italia" data-relevancy-booster="2">Italy</option>
-      <option value="Jamaica" data-flag="JM" data-alternative-spellings="JM">Jamaica</option>
-      <option value="Japan" data-flag="JP" data-alternative-spellings="JP Nippon Nihon 日本" data-relevancy-booster="2.5">Japan</option>
-      <option value="Jersey" data-flag="JE" data-alternative-spellings="JE" data-relevancy-booster="0.5">Jersey</option>
-      <option value="Jordan" data-flag="JO" data-alternative-spellings="JO الأردن">Jordan</option>
-      <option value="Kazakhstan" data-flag="KZ" data-alternative-spellings="KZ Қазақстан Казахстан">Kazakhstan</option>
-      <option value="Kenya" data-flag="KE" data-alternative-spellings="KE">Kenya</option>
-      <option value="Kiribati" data-flag="KI" data-alternative-spellings="KI">Kiribati</option>
-      <option value="Korea, Democratic People's Republic of" data-flag="KP" data-alternative-spellings="KP North Korea">Korea, Democratic People's Republic of</option>
-      <option value="Korea, Republic of" data-flag="KR" data-alternative-spellings="KR South Korea" data-relevancy-booster="1.5">Korea, Republic of</option>
-      <option value="Kuwait" data-flag="KW" data-alternative-spellings="KW الكويت">Kuwait</option>
-      <option value="Kyrgyzstan" data-flag="KG" data-alternative-spellings="KG Кыргызстан">Kyrgyzstan</option>
-      <option value="+85" data-code="85" data-flag="LA" data-alternative-spellings="LA">Lao People's Democratic Republic</option>
-      <option selected="selected" value="+371" data-code="371" data-price="0.15" data-flag="LV" data-alternative-spellings="LV Latvija">Latvia</option>
-      <option value="Lebanon" data-flag="LB" data-alternative-spellings="LB لبنان">Lebanon</option>
-      <option value="Lesotho" data-flag="LS" data-alternative-spellings="LS">Lesotho</option>
-      <option value="Liberia" data-flag="LR" data-alternative-spellings="LR">Liberia</option>
-      <option value="Libyan Arab Jamahiriya" data-flag="LY" data-alternative-spellings="LY ليبيا">Libyan Arab Jamahiriya</option>
-      <option value="Liechtenstein" data-flag="LI" data-alternative-spellings="LI">Liechtenstein</option>
-      <option value="Lithuania" data-code="3" data-flag="LT" data-alternative-spellings="LT Lietuva">Lithuania</option>
-      <option value="Luxembourg" data-flag="LU" data-alternative-spellings="LU">Luxembourg</option>
-      <option value="Macao" data-flag="MO" data-alternative-spellings="MO">Macao</option>
-      <option value="Macedonia, The Former Yugoslav Republic Of" data-flag="MK" data-alternative-spellings="MK Македонија">Macedonia, The Former Yugoslav Republic Of</option>
-      <option value="Madagascar" data-flag="MG" data-alternative-spellings="MG Madagasikara">Madagascar</option>
-      <option value="Malawi" data-flag="MW" data-alternative-spellings="MW">Malawi</option>
-      <option value="Malaysia" data-flag="MY" data-alternative-spellings="MY">Malaysia</option>
-      <option value="Maldives" data-flag="MV" data-alternative-spellings="MV">Maldives</option>
-      <option value="Mali" data-flag="ML" data-alternative-spellings="ML">Mali</option>
-      <option value="Malta" data-flag="MT" data-alternative-spellings="MT">Malta</option>
-      <option value="Marshall Islands" data-flag="MH" data-alternative-spellings="MH" data-relevancy-booster="0.5">Marshall Islands</option>
-      <option value="Martinique" data-flag="MQ" data-alternative-spellings="MQ">Martinique</option>
-      <option value="Mauritania" data-flag="MR" data-alternative-spellings="MR الموريتانية">Mauritania</option>
-      <option value="Mauritius" data-flag="MU" data-alternative-spellings="MU">Mauritius</option>
-      <option value="Mayotte" data-flag="YT" data-alternative-spellings="YT">Mayotte</option>
-      <option value="Mexico" data-flag="MX" data-alternative-spellings="MX Mexicanos" data-relevancy-booster="1.5">Mexico</option>
-      <option value="Micronesia, Federated States of" data-flag="FM" data-alternative-spellings="FM">Micronesia, Federated States of</option>
-      <option value="Moldova, Republic of" data-flag="MD" data-alternative-spellings="MD">Moldova, Republic of</option>
-      <option value="Monaco" data-flag="MC" data-alternative-spellings="MC">Monaco</option>
-      <option value="Mongolia" data-flag="MN" data-alternative-spellings="MN Mongγol ulus Монгол улс">Mongolia</option>
-      <option value="Montenegro" data-flag="ME" data-alternative-spellings="ME">Montenegro</option>
-      <option value="Montserrat" data-flag="MS" data-alternative-spellings="MS" data-relevancy-booster="0.5">Montserrat</option>
-      <option value="Morocco" data-flag="MA" data-alternative-spellings="MA المغرب">Morocco</option>
-      <option value="Mozambique" data-flag="MZ" data-alternative-spellings="MZ Moçambique">Mozambique</option>
-      <option value="Myanmar" data-flag="MM" data-alternative-spellings="MM">Myanmar</option>
-      <option value="Namibia" data-flag="NA" data-alternative-spellings="NA Namibië">Namibia</option>
-      <option value="Nauru" data-flag="NR" data-alternative-spellings="NR Naoero" data-relevancy-booster="0.5">Nauru</option>
-      <option value="Nepal" data-flag="NP" data-alternative-spellings="NP नेपाल">Nepal</option>
-      <option value="Netherlands" data-flag="NL" data-alternative-spellings="NL Holland Nederland" data-relevancy-booster="1.5">Netherlands</option>
-      <option value="New Caledonia" data-flag="NC" data-alternative-spellings="NC" data-relevancy-booster="0.5">New Caledonia</option>
-      <option value="New Zealand" data-flag="NZ" data-alternative-spellings="NZ Aotearoa">New Zealand</option>
-      <option value="Nicaragua" data-flag="NI" data-alternative-spellings="NI">Nicaragua</option>
-      <option value="Niger" data-flag="NE" data-alternative-spellings="NE Nijar">Niger</option>
-      <option value="Nigeria" data-flag="NG" data-alternative-spellings="NG Nijeriya Naíjíríà" data-relevancy-booster="1.5">Nigeria</option>
-      <option value="Niue" data-flag="NU" data-alternative-spellings="NU" data-relevancy-booster="0.5">Niue</option>
-      <option value="Norfolk Island" data-flag="NF" data-alternative-spellings="NF" data-relevancy-booster="0.5">Norfolk Island</option>
-      <option value="Northern Mariana Islands" data-flag="MP" data-alternative-spellings="MP" data-relevancy-booster="0.5">Northern Mariana Islands</option>
-      <option value="Norway" data-flag="NO" data-alternative-spellings="NO Norge Noreg" data-relevancy-booster="1.5">Norway</option>
-      <option value="Oman" data-flag="OM" data-alternative-spellings="OM عمان">Oman</option>
-      <option value="Pakistan" data-flag="PK" data-alternative-spellings="PK پاکستان" data-relevancy-booster="2">Pakistan</option>
-      <option value="Palau" data-flag="PW" data-alternative-spellings="PW" data-relevancy-booster="0.5">Palau</option>
-      <option value="Palestinian Territory, Occupied" data-flag="PS" data-alternative-spellings="PS فلسطين">Palestinian Territory, Occupied</option>
-      <option value="Panama" data-flag="PA" data-alternative-spellings="PA">Panama</option>
-      <option value="Papua New Guinea" data-flag="PG" data-alternative-spellings="PG">Papua New Guinea</option>
-      <option value="Paraguay" data-flag="PY" data-alternative-spellings="PY">Paraguay</option>
-      <option value="Peru" data-flag="PE" data-alternative-spellings="PE">Peru</option>
-      <option value="Philippines" data-flag="PH" data-alternative-spellings="PH Pilipinas" data-relevancy-booster="1.5">Philippines</option>
-      <option value="Pitcairn" data-flag="PN" data-alternative-spellings="PN" data-relevancy-booster="0.5">Pitcairn</option>
-      <option value="Poland" data-flag="PL" data-alternative-spellings="PL Polska" data-relevancy-booster="1.25">Poland</option>
-      <option value="Portugal" data-flag="PT" data-alternative-spellings="PT Portuguesa" data-relevancy-booster="1.5">Portugal</option>
-      <option value="Puerto Rico" data-flag="PR" data-alternative-spellings="PR">Puerto Rico</option>
-      <option value="Qatar" data-flag="QA" data-alternative-spellings="QA قطر">Qatar</option>
-      <option value="Réunion" data-flag="RE" data-alternative-spellings="RE Reunion">Réunion</option>
-      <option value="Romania" data-flag="RO" data-alternative-spellings="RO Rumania Roumania România">Romania</option>
-      <option value="Russian Federation" data-flag="RU" data-alternative-spellings="RU Rossiya Российская Россия" data-relevancy-booster="2.5">Russian Federation</option>
-      <option value="Rwanda" data-flag="RW" data-alternative-spellings="RW">Rwanda</option>
-      <option value="Saint Barthélemy" data-flag="BL" data-alternative-spellings="BL St. Barthelemy">Saint Barthélemy</option>
-      <option value="Saint Helena" data-flag="SH" data-alternative-spellings="SH St.">Saint Helena</option>
-      <option value="Saint Kitts and Nevis" data-flag="KN" data-alternative-spellings="KN St.">Saint Kitts and Nevis</option>
-      <option value="Saint Lucia" data-flag="LC" data-alternative-spellings="LC St.">Saint Lucia</option>
-      <option value="Saint Martin (French Part)" data-flag="MF" data-alternative-spellings="MF St.">Saint Martin (French Part)</option>
-      <option value="Saint Pierre and Miquelon" data-flag="PM" data-alternative-spellings="PM St.">Saint Pierre and Miquelon</option>
-      <option value="Saint Vincent and the Grenadines" data-flag="VC" data-alternative-spellings="VC St.">Saint Vincent and the Grenadines</option>
-      <option value="Samoa" data-flag="WS" data-alternative-spellings="WS">Samoa</option>
-      <option value="San Marino" data-flag="SM" data-alternative-spellings="SM">San Marino</option>
-      <option value="Sao Tome and Principe" data-flag="ST" data-alternative-spellings="ST">Sao Tome and Principe</option>
-      <option value="Saudi Arabia" data-flag="SA" data-alternative-spellings="SA السعودية">Saudi Arabia</option>
-      <option value="Senegal" data-flag="SN" data-alternative-spellings="SN Sénégal">Senegal</option>
-      <option value="Serbia" data-flag="RS" data-alternative-spellings="RS Србија Srbija">Serbia</option>
-      <option value="Seychelles" data-flag="SC" data-alternative-spellings="SC" data-relevancy-booster="0.5">Seychelles</option>
-      <option value="Sierra Leone" data-flag="SL" data-alternative-spellings="SL">Sierra Leone</option>
-      <option value="Singapore" data-flag="SG" data-alternative-spellings="SG Singapura  சிங்கப்பூர் குடியரசு 新加坡共和国">Singapore</option>
-      <option value="Sint Maarten (Dutch Part)" data-flag="SX" data-alternative-spellings="SX">Sint Maarten (Dutch Part)</option>
-      <option value="Slovakia" data-flag="SK" data-alternative-spellings="SK Slovenská Slovensko">Slovakia</option>
-      <option value="Slovenia" data-flag="SI" data-alternative-spellings="SI Slovenija">Slovenia</option>
-      <option value="Solomon Islands" data-flag="SB" data-alternative-spellings="SB">Solomon Islands</option>
-      <option value="Somalia" data-flag="SO" data-alternative-spellings="SO الصومال">Somalia</option>
-      <option value="South Africa" data-flag="ZA" data-alternative-spellings="ZA RSA Suid-Afrika">South Africa</option>
-      <option value="South Georgia and the South Sandwich Islands" data-flag="GS" data-alternative-spellings="GS">South Georgia and the South Sandwich Islands</option>
-      <option value="South Sudan" data-flag="SS" data-alternative-spellings="SS">South Sudan</option>
-      <option value="Spain" data-flag="ES" data-alternative-spellings="ES España" data-relevancy-booster="2">Spain</option>
-      <option value="Sri Lanka" data-flag="LK" data-alternative-spellings="LK ශ්‍රී ලංකා இலங்கை Ceylon">Sri Lanka</option>
-      <option value="Sudan" data-flag="SD" data-alternative-spellings="SD السودان">Sudan</option>
-      <option value="Suriname" data-flag="SR" data-alternative-spellings="SR शर्नम् Sarnam Sranangron">Suriname</option>
-      <option value="Svalbard and Jan Mayen" data-flag="SJ" data-alternative-spellings="SJ" data-relevancy-booster="0.5">Svalbard and Jan Mayen</option>
-      <option value="Swaziland" data-flag="SZ" data-alternative-spellings="SZ weSwatini Swatini Ngwane">Swaziland</option>
-      <option value="Sweden" data-flag="SE" data-alternative-spellings="SE Sverige" data-relevancy-booster="1.5">Sweden</option>
-      <option value="Switzerland" data-flag="CH" data-alternative-spellings="CH Swiss Confederation Schweiz Suisse Svizzera Svizra" data-relevancy-booster="1.5">Switzerland</option>
-      <option value="Syrian Arab Republic" data-flag="SY" data-alternative-spellings="SY Syria سورية">Syrian Arab Republic</option>
-      <option value="Taiwan, Province of China" data-flag="TW" data-alternative-spellings="TW 台灣 臺灣">Taiwan, Province of China</option>
-      <option value="Tajikistan" data-flag="TJ" data-alternative-spellings="TJ Тоҷикистон Toçikiston">Tajikistan</option>
-      <option value="Tanzania, United Republic of" data-flag="TZ" data-alternative-spellings="TZ">Tanzania, United Republic of</option>
-      <option value="Thailand" data-flag="TH" data-alternative-spellings="TH ประเทศไทย Prathet Thai">Thailand</option>
-      <option value="Timor-Leste" data-flag="TL" data-alternative-spellings="TL">Timor-Leste</option>
-      <option value="Togo" data-flag="TG" data-alternative-spellings="TG Togolese">Togo</option>
-      <option value="Tokelau" data-flag="TK" data-alternative-spellings="TK" data-relevancy-booster="0.5">Tokelau</option>
-      <option value="Tonga" data-flag="TO" data-alternative-spellings="TO">Tonga</option>
-      <option value="Trinidad and Tobago" data-flag="TT" data-alternative-spellings="TT">Trinidad and Tobago</option>
-      <option value="Tunisia" data-flag="TN" data-alternative-spellings="TN تونس">Tunisia</option>
-      <option value="Turkey" data-flag="TR" data-alternative-spellings="TR Türkiye Turkiye">Turkey</option>
-      <option value="Turkmenistan" data-flag="TM" data-alternative-spellings="TM Türkmenistan">Turkmenistan</option>
-      <option value="Turks and Caicos Islands" data-flag="TC" data-alternative-spellings="TC" data-relevancy-booster="0.5">Turks and Caicos Islands</option>
-      <option value="Tuvalu" data-flag="TV" data-alternative-spellings="TV" data-relevancy-booster="0.5">Tuvalu</option>
-      <option value="Uganda" data-flag="UG" data-alternative-spellings="UG">Uganda</option>
-      <option value="Ukraine" data-flag="UA" data-alternative-spellings="UA Ukrayina Україна">Ukraine</option>
-      <option value="United Arab Emirates" data-flag="AE" data-alternative-spellings="AE UAE الإمارات">United Arab Emirates</option>
-      <option value="United Kingdom" data-flag="GB" data-alternative-spellings="GB Great Britain England UK Wales Scotland Northern Ireland" data-relevancy-booster="2.5">United Kingdom</option>
-      <option value="United States" data-relevancy-booster="3.5" data-flag="US" data-alternative-spellings="US USA United States of America">United States</option>
-      <option value="United States Minor Outlying Islands" data-flag="UM" data-alternative-spellings="UM">United States Minor Outlying Islands</option>
-      <option value="Uruguay" data-flag="UY" data-alternative-spellings="UY">Uruguay</option>
-      <option value="Uzbekistan" data-flag="UZ" data-alternative-spellings="UZ Ўзбекистон O'zbekstan O‘zbekiston">Uzbekistan</option>
-      <option value="Vanuatu" data-flag="VU" data-alternative-spellings="VU">Vanuatu</option>
-      <option value="Venezuela" data-flag="VE" data-alternative-spellings="VE">Venezuela</option>
-      <option value="Vietnam" data-flag="VN" data-alternative-spellings="VN Việt Nam" data-relevancy-booster="1.5">Vietnam</option>
-      <option value="Virgin Islands, British" data-flag="VG" data-alternative-spellings="VG" data-relevancy-booster="0.5">Virgin Islands, British</option>
-      <option value="Virgin Islands, U.S." data-flag="VI" data-alternative-spellings="VI" data-relevancy-booster="0.5">Virgin Islands, U.S.</option>
-      <option value="Wallis and Futuna" data-flag="WF" data-alternative-spellings="WF" data-relevancy-booster="0.5">Wallis and Futuna</option>
-      <option value="Western Sahara" data-flag="EH" data-alternative-spellings="EH لصحراء الغربية">Western Sahara</option>
-      <option value="Yemen" data-flag="YE" data-alternative-spellings="YE اليمن">Yemen</option>
-      <option value="Zambia" data-flag="ZM" data-alternative-spellings="ZM">Zambia</option>
-      <option value="Zimbabwe" data-flag="ZW" data-alternative-spellings="ZW">Zimbabwe</option>
+      <option value="Afghanistan" data-contact="true" data-flag="AF.png" data-alternative-spellings="AF افغانستان">Afghanistan</option>
+      <option value="Åland Islands" data-flag="AX.png" data-alternative-spellings="AX Aaland Aland" data-relevancy-booster="0.5">Åland Islands</option>
+      <option value="Albania" data-flag="AL.png" data-alternative-spellings="AL">Albania</option>
+      <option value="Algeria" data-flag="DZ.png" data-alternative-spellings="DZ الجزائر">Algeria</option>
+      <option value="American Samoa" data-flag="AS.png" data-alternative-spellings="AS" data-relevancy-booster="0.5">American Samoa</option>
+      <option value="Andorra" data-flag="AD.png" data-alternative-spellings="AD" data-relevancy-booster="0.5">Andorra</option>
+      <option value="Angola" data-flag="AO.png" data-alternative-spellings="AO">Angola</option>
+      <option value="Anguilla" data-flag="AI.png" data-alternative-spellings="AI" data-relevancy-booster="0.5">Anguilla</option>
+      <option value="Antarctica" data-flag="AQ.png" data-alternative-spellings="AQ" data-relevancy-booster="0.5">Antarctica</option>
+      <option value="Antigua And Barbuda" data-flag="AG.png" data-alternative-spellings="AG" data-relevancy-booster="0.5">Antigua And Barbuda</option>
+      <option value="Argentina" data-flag="AR.png" data-alternative-spellings="AR">Argentina</option>
+      <option value="Armenia" data-flag="AM.png" data-alternative-spellings="AM Հայաստան">Armenia</option>
+      <option value="Aruba" data-flag="AW.png" data-alternative-spellings="AW" data-relevancy-booster="0.5">Aruba</option>
+      <option value="Australia" data-flag="AU.png" data-alternative-spellings="AU" data-relevancy-booster="1.5">Australia</option>
+      <option value="Austria" data-flag="AT.png" data-alternative-spellings="AT Österreich Osterreich Oesterreich ">Austria</option>
+      <option value="Azerbaijan" data-flag="AZ.png" data-alternative-spellings="AZ">Azerbaijan</option>
+      <option value="Bahamas" data-flag="BS.png" data-alternative-spellings="BS">Bahamas</option>
+      <option value="Bahrain" data-flag="BH.png" data-alternative-spellings="BH البحرين">Bahrain</option>
+      <option value="Bangladesh" data-flag="BD.png" data-alternative-spellings="BD বাংলাদেশ" data-relevancy-booster="2">Bangladesh</option>
+      <option value="Barbados" data-flag="BB.png" data-alternative-spellings="BB">Barbados</option>
+      <option value="Belarus" data-flag="BY.png" data-alternative-spellings="BY Беларусь">Belarus</option>
+      <option value="Belgium" data-flag="BE.png" data-alternative-spellings="BE België Belgie Belgien Belgique" data-relevancy-booster="1.5">Belgium</option>
+      <option value="Belize" data-flag="BZ.png" data-alternative-spellings="BZ">Belize</option>
+      <option value="Benin" data-flag="BJ.png" data-alternative-spellings="BJ">Benin</option>
+      <option value="Bermuda" data-flag="BM.png" data-alternative-spellings="BM" data-relevancy-booster="0.5">Bermuda</option>
+      <option value="Bhutan" data-flag="BT.png" data-alternative-spellings="BT भूटान">Bhutan</option>
+      <option value="Bolivia" data-flag="BO.png" data-alternative-spellings="BO">Bolivia</option>
+      <option value="Bonaire, Sint Eustatius and Saba" data-flag="BQ.png" data-alternative-spellings="BQ">Bonaire, Sint Eustatius and Saba</option>
+      <option value="Bosnia and Herzegovina" data-flag="BA.png" data-alternative-spellings="BA Босна и Херцеговина">Bosnia and Herzegovina</option>
+      <option value="Botswana" data-flag="BW.png" data-alternative-spellings="BW">Botswana</option>
+      <option value="Bouvet Island" data-flag="BV.png" data-alternative-spellings="BV">Bouvet Island</option>
+      <option value="Brazil" data-flag="BR.png" data-alternative-spellings="BR Brasil" data-relevancy-booster="2">Brazil</option>
+      <option value="British Indian Ocean Territory" data-flag="IO.png" data-alternative-spellings="IO">British Indian Ocean Territory</option>
+      <option value="Brunei Darussalam" data-flag="BN.png" data-alternative-spellings="BN">Brunei Darussalam</option>
+      <option value="Bulgaria" data-flag="BG.png" data-alternative-spellings="BG България">Bulgaria</option>
+      <option value="Burkina Faso" data-flag="BF.png" data-alternative-spellings="BF">Burkina Faso</option>
+      <option value="Burundi" data-flag="BI.png" data-alternative-spellings="BI">Burundi</option>
+      <option value="Cambodia" data-flag="KH.png" data-alternative-spellings="KH កម្ពុជា">Cambodia</option>
+      <option value="Cameroon" data-flag="CM.png" data-alternative-spellings="CM">Cameroon</option>
+      <option value="Canada" data-flag="CA.png" data-alternative-spellings="CA" data-relevancy-booster="2">Canada</option>
+      <option value="Cape Verde" data-flag="CV.png" data-alternative-spellings="CV Cabo">Cape Verde</option>
+      <option value="Cayman Islands" data-flag="KY.png" data-alternative-spellings="KY" data-relevancy-booster="0.5">Cayman Islands</option>
+      <option value="Central African Republic" data-flag="CF.png" data-alternative-spellings="CF">Central African Republic</option>
+      <option value="Chad" data-flag="TD.png" data-alternative-spellings="TD تشاد‎ Tchad">Chad</option>
+      <option value="Chile" data-flag="CL.png" data-alternative-spellings="CL">Chile</option>
+      <option value="China" data-relevancy-booster="3.5" data-flag="CN.png" data-alternative-spellings="CN Zhongguo Zhonghua Peoples Republic 中国/中华">China</option>
+      <option value="Christmas Island" data-flag="CX.png" data-alternative-spellings="CX" data-relevancy-booster="0.5">Christmas Island</option>
+      <option value="Cocos (Keeling) Islands" data-flag="CC.png" data-alternative-spellings="CC" data-relevancy-booster="0.5">Cocos (Keeling) Islands</option>
+      <option value="Colombia" data-flag="CO.png" data-alternative-spellings="CO">Colombia</option>
+      <option value="Comoros" data-flag="KM.png" data-alternative-spellings="KM جزر القمر">Comoros</option>
+      <option value="Congo" data-flag="CG.png" data-alternative-spellings="CG">Congo</option>
+      <option value="Congo, the Democratic Republic of the" data-flag="CD.png" data-alternative-spellings="CD Congo-Brazzaville Repubilika ya Kongo">Congo, the Democratic Republic of the</option>
+      <option value="Cook Islands" data-flag="CK.png" data-alternative-spellings="CK" data-relevancy-booster="0.5">Cook Islands</option>
+      <option value="Costa Rica" data-flag="CR.png" data-alternative-spellings="CR">Costa Rica</option>
+      <option value="Côte d'Ivoire" data-flag="CI.png" data-alternative-spellings="CI Cote dIvoire">Côte d'Ivoire</option>
+      <option value="Croatia" data-flag="HR.png" data-alternative-spellings="HR Hrvatska">Croatia</option>
+      <option value="Cuba" data-flag="CU.png" data-alternative-spellings="CU">Cuba</option>
+      <option value="Curaçao" data-flag="CW.png" data-alternative-spellings="CW Curacao">Curaçao</option>
+      <option value="Cyprus" data-flag="CY.png" data-alternative-spellings="CY Κύπρος Kýpros Kıbrıs">Cyprus</option>
+      <option value="Czech Republic" data-flag="CZ.png" data-alternative-spellings="CZ Česká Ceska">Czech Republic</option>
+      <option value="Denmark" data-flag="DK.png" data-alternative-spellings="DK Danmark" data-relevancy-booster="1.5">Denmark</option>
+      <option value="Djibouti" data-flag="DJ.png" data-alternative-spellings="DJ جيبوتي‎ Jabuuti Gabuuti">Djibouti</option>
+      <option value="Dominica" data-flag="DM.png" data-alternative-spellings="DM Dominique" data-relevancy-booster="0.5">Dominica</option>
+      <option value="Dominican Republic" data-flag="DO.png" data-alternative-spellings="DO">Dominican Republic</option>
+      <option value="Ecuador" data-flag="EC.png" data-alternative-spellings="EC">Ecuador</option>
+      <option value="Egypt" data-flag="EG.png" data-alternative-spellings="EG" data-relevancy-booster="1.5">Egypt</option>
+      <option value="El Salvador" data-flag="SV.png" data-alternative-spellings="SV">El Salvador</option>
+      <option value="Equatorial Guinea" data-flag="GQ.png" data-alternative-spellings="GQ">Equatorial Guinea</option>
+      <option value="Eritrea" data-flag="ER.png" data-alternative-spellings="ER إرتريا ኤርትራ">Eritrea</option>
+      <option value="Estonia" data-flag="EE.png" data-alternative-spellings="EE Eesti">Estonia</option>
+      <option value="Ethiopia" data-flag="ET.png" data-alternative-spellings="ET ኢትዮጵያ">Ethiopia</option>
+      <option value="Falkland Islands (Malvinas)" data-flag="FK.png" data-alternative-spellings="FK" data-relevancy-booster="0.5">Falkland Islands (Malvinas)</option>
+      <option value="Faroe Islands" data-flag="FO.png" data-alternative-spellings="FO Føroyar Færøerne" data-relevancy-booster="0.5">Faroe Islands</option>
+      <option value="Fiji" data-flag="FJ.png" data-alternative-spellings="FJ Viti फ़िजी">Fiji</option>
+      <option value="Finland" data-flag="FI.png" data-alternative-spellings="FI Suomi">Finland</option>
+      <option value="France" data-flag="FR.png" data-alternative-spellings="FR République française" data-relevancy-booster="2.5">France</option>
+      <option value="French Guiana" data-flag="GF.png" data-alternative-spellings="GF">French Guiana</option>
+      <option value="French Polynesia" data-flag="PF.png" data-alternative-spellings="PF Polynésie française">French Polynesia</option>
+      <option value="French Southern Territories" data-flag="TF.png" data-alternative-spellings="TF">French Southern Territories</option>
+      <option value="Gabon" data-flag="GA.png" data-alternative-spellings="GA République Gabonaise">Gabon</option>
+      <option value="Gambia" data-flag="GM.png" data-alternative-spellings="GM">Gambia</option>
+      <option value="Georgia" data-flag="GE.png" data-alternative-spellings="GE საქართველო">Georgia</option>
+      <option value="Germany" data-flag="DE.png" data-alternative-spellings="DE Bundesrepublik Deutschland" data-relevancy-booster="3">Germany</option>
+      <option value="Ghana" data-flag="GH.png" data-alternative-spellings="GH">Ghana</option>
+      <option value="Gibraltar" data-flag="GI.png" data-alternative-spellings="GI" data-relevancy-booster="0.5">Gibraltar</option>
+      <option value="Greece" data-flag="GR.png" data-alternative-spellings="GR Ελλάδα" data-relevancy-booster="1.5">Greece</option>
+      <option value="Greenland" data-flag="GL.png" data-alternative-spellings="GL grønland" data-relevancy-booster="0.5">Greenland</option>
+      <option value="Grenada" data-flag="GD.png" data-alternative-spellings="GD">Grenada</option>
+      <option value="Guadeloupe" data-flag="GP.png" data-alternative-spellings="GP">Guadeloupe</option>
+      <option value="Guam" data-flag="GU.png" data-alternative-spellings="GU">Guam</option>
+      <option value="Guatemala" data-flag="GT.png" data-alternative-spellings="GT">Guatemala</option>
+      <option value="Guernsey" data-flag="GG.png" data-alternative-spellings="GG" data-relevancy-booster="0.5">Guernsey</option>
+      <option value="Guinea" data-flag="GN.png" data-alternative-spellings="GN">Guinea</option>
+      <option value="Guinea-Bissau" data-flag="GW.png" data-alternative-spellings="GW">Guinea-Bissau</option>
+      <option value="Guyana" data-flag="GY.png" data-alternative-spellings="GY">Guyana</option>
+      <option value="Haiti" data-flag="HT.png" data-alternative-spellings="HT">Haiti</option>
+      <option value="Heard Island and McDonald Islands" data-flag="HM.png" data-alternative-spellings="HM">Heard Island and McDonald Islands</option>
+      <option value="Holy See (Vatican City State)" data-flag="VA.png" data-alternative-spellings="VA" data-relevancy-booster="0.5">Holy See (Vatican City State)</option>
+      <option value="Honduras" data-flag="HN.png" data-alternative-spellings="HN">Honduras</option>
+      <option value="Hong Kong" data-flag="HK.png" data-alternative-spellings="HK 香港">Hong Kong</option>
+      <option value="Hungary" data-flag="HU.png" data-alternative-spellings="HU Magyarország">Hungary</option>
+      <option value="Iceland" data-flag="IS.png" data-alternative-spellings="IS Island">Iceland</option>
+      <option value="India" data-flag="IN.png" data-alternative-spellings="IN भारत गणराज्य Hindustan" data-relevancy-booster="3">India</option>
+      <option value="Indonesia" data-flag="ID.png" data-alternative-spellings="ID" data-relevancy-booster="2">Indonesia</option>
+      <option value="Iran, Islamic Republic of" data-flag="IR.png" data-alternative-spellings="IR ایران">Iran, Islamic Republic of</option>
+      <option value="Iraq" data-flag="IQ.png" data-alternative-spellings="IQ العراق‎">Iraq</option>
+      <option value="Ireland" data-flag="IE.png" data-alternative-spellings="IE Éire" data-relevancy-booster="1.2">Ireland</option>
+      <option value="Isle of Man" data-flag="IM.png" data-alternative-spellings="IM" data-relevancy-booster="0.5">Isle of Man</option>
+      <option value="Israel" data-flag="IL.png" data-alternative-spellings="IL إسرائيل ישראל">Israel</option>
+      <option value="Italy" data-flag="IT.png" data-alternative-spellings="IT Italia" data-relevancy-booster="2">Italy</option>
+      <option value="Jamaica" data-flag="JM.png" data-alternative-spellings="JM">Jamaica</option>
+      <option value="Japan" data-flag="JP.png" data-alternative-spellings="JP Nippon Nihon 日本" data-relevancy-booster="2.5">Japan</option>
+      <option value="Jersey" data-flag="JE.png" data-alternative-spellings="JE" data-relevancy-booster="0.5">Jersey</option>
+      <option value="Jordan" data-flag="JO.png" data-alternative-spellings="JO الأردن">Jordan</option>
+      <option value="Kazakhstan" data-flag="KZ.png" data-alternative-spellings="KZ Қазақстан Казахстан">Kazakhstan</option>
+      <option value="Kenya" data-flag="KE.png" data-alternative-spellings="KE">Kenya</option>
+      <option value="Kiribati" data-flag="KI.png" data-alternative-spellings="KI">Kiribati</option>
+      <option value="Korea, Democratic People's Republic of" data-flag="KP.png" data-alternative-spellings="KP North Korea">Korea, Democratic People's Republic of</option>
+      <option value="Korea, Republic of" data-flag="KR.png" data-alternative-spellings="KR South Korea" data-relevancy-booster="1.5">Korea, Republic of</option>
+      <option value="Kuwait" data-flag="KW.png" data-alternative-spellings="KW الكويت">Kuwait</option>
+      <option value="Kyrgyzstan" data-flag="KG.png" data-alternative-spellings="KG Кыргызстан">Kyrgyzstan</option>
+      <option value="+85" data-code="85" data-flag="LA.png" data-alternative-spellings="LA">Lao People's Democratic Republic</option>
+      <option selected="selected" value="+371" data-code="371" data-price="0.15" data-flag="LV.png" data-alternative-spellings="LV Latvija">Latvia</option>
+      <option value="Lebanon" data-flag="LB.png" data-alternative-spellings="LB لبنان">Lebanon</option>
+      <option value="Lesotho" data-flag="LS.png" data-alternative-spellings="LS">Lesotho</option>
+      <option value="Liberia" data-flag="LR.png" data-alternative-spellings="LR">Liberia</option>
+      <option value="Libyan Arab Jamahiriya" data-flag="LY.png" data-alternative-spellings="LY ليبيا">Libyan Arab Jamahiriya</option>
+      <option value="Liechtenstein" data-flag="LI.png" data-alternative-spellings="LI">Liechtenstein</option>
+      <option value="Lithuania" data-code="3" data-flag="LT.png" data-alternative-spellings="LT Lietuva">Lithuania</option>
+      <option value="Luxembourg" data-flag="LU.png" data-alternative-spellings="LU">Luxembourg</option>
+      <option value="Macao" data-flag="MO.png" data-alternative-spellings="MO">Macao</option>
+      <option value="Macedonia, The Former Yugoslav Republic Of" data-flag="MK.png" data-alternative-spellings="MK Македонија">Macedonia, The Former Yugoslav Republic Of</option>
+      <option value="Madagascar" data-flag="MG.png" data-alternative-spellings="MG Madagasikara">Madagascar</option>
+      <option value="Malawi" data-flag="MW.png" data-alternative-spellings="MW">Malawi</option>
+      <option value="Malaysia" data-flag="MY.png" data-alternative-spellings="MY">Malaysia</option>
+      <option value="Maldives" data-flag="MV.png" data-alternative-spellings="MV">Maldives</option>
+      <option value="Mali" data-flag="ML.png" data-alternative-spellings="ML">Mali</option>
+      <option value="Malta" data-flag="MT.png" data-alternative-spellings="MT">Malta</option>
+      <option value="Marshall Islands" data-flag="MH.png" data-alternative-spellings="MH" data-relevancy-booster="0.5">Marshall Islands</option>
+      <option value="Martinique" data-flag="MQ.png" data-alternative-spellings="MQ">Martinique</option>
+      <option value="Mauritania" data-flag="MR.png" data-alternative-spellings="MR الموريتانية">Mauritania</option>
+      <option value="Mauritius" data-flag="MU.png" data-alternative-spellings="MU">Mauritius</option>
+      <option value="Mayotte" data-flag="YT.png" data-alternative-spellings="YT">Mayotte</option>
+      <option value="Mexico" data-flag="MX.png" data-alternative-spellings="MX Mexicanos" data-relevancy-booster="1.5">Mexico</option>
+      <option value="Micronesia, Federated States of" data-flag="FM.png" data-alternative-spellings="FM">Micronesia, Federated States of</option>
+      <option value="Moldova, Republic of" data-flag="MD.png" data-alternative-spellings="MD">Moldova, Republic of</option>
+      <option value="Monaco" data-flag="MC.png" data-alternative-spellings="MC">Monaco</option>
+      <option value="Mongolia" data-flag="MN.png" data-alternative-spellings="MN Mongγol ulus Монгол улс">Mongolia</option>
+      <option value="Montenegro" data-flag="ME.png" data-alternative-spellings="ME">Montenegro</option>
+      <option value="Montserrat" data-flag="MS.png" data-alternative-spellings="MS" data-relevancy-booster="0.5">Montserrat</option>
+      <option value="Morocco" data-flag="MA.png" data-alternative-spellings="MA المغرب">Morocco</option>
+      <option value="Mozambique" data-flag="MZ.png" data-alternative-spellings="MZ Moçambique">Mozambique</option>
+      <option value="Myanmar" data-flag="MM.png" data-alternative-spellings="MM">Myanmar</option>
+      <option value="Namibia" data-flag="NA.png" data-alternative-spellings="NA Namibië">Namibia</option>
+      <option value="Nauru" data-flag="NR.png" data-alternative-spellings="NR Naoero" data-relevancy-booster="0.5">Nauru</option>
+      <option value="Nepal" data-flag="NP.png" data-alternative-spellings="NP नेपाल">Nepal</option>
+      <option value="Netherlands" data-flag="NL.png" data-alternative-spellings="NL Holland Nederland" data-relevancy-booster="1.5">Netherlands</option>
+      <option value="New Caledonia" data-flag="NC.png" data-alternative-spellings="NC" data-relevancy-booster="0.5">New Caledonia</option>
+      <option value="New Zealand" data-flag="NZ.png" data-alternative-spellings="NZ Aotearoa">New Zealand</option>
+      <option value="Nicaragua" data-flag="NI.png" data-alternative-spellings="NI">Nicaragua</option>
+      <option value="Niger" data-flag="NE.png" data-alternative-spellings="NE Nijar">Niger</option>
+      <option value="Nigeria" data-flag="NG.png" data-alternative-spellings="NG Nijeriya Naíjíríà" data-relevancy-booster="1.5">Nigeria</option>
+      <option value="Niue" data-flag="NU.png" data-alternative-spellings="NU" data-relevancy-booster="0.5">Niue</option>
+      <option value="Norfolk Island" data-flag="NF.png" data-alternative-spellings="NF" data-relevancy-booster="0.5">Norfolk Island</option>
+      <option value="Northern Mariana Islands" data-flag="MP.png" data-alternative-spellings="MP" data-relevancy-booster="0.5">Northern Mariana Islands</option>
+      <option value="Norway" data-flag="NO.png" data-alternative-spellings="NO Norge Noreg" data-relevancy-booster="1.5">Norway</option>
+      <option value="Oman" data-flag="OM.png" data-alternative-spellings="OM عمان">Oman</option>
+      <option value="Pakistan" data-flag="PK.png" data-alternative-spellings="PK پاکستان" data-relevancy-booster="2">Pakistan</option>
+      <option value="Palau" data-flag="PW.png" data-alternative-spellings="PW" data-relevancy-booster="0.5">Palau</option>
+      <option value="Palestinian Territory, Occupied" data-flag="PS.png" data-alternative-spellings="PS فلسطين">Palestinian Territory, Occupied</option>
+      <option value="Panama" data-flag="PA.png" data-alternative-spellings="PA">Panama</option>
+      <option value="Papua New Guinea" data-flag="PG.png" data-alternative-spellings="PG">Papua New Guinea</option>
+      <option value="Paraguay" data-flag="PY.png" data-alternative-spellings="PY">Paraguay</option>
+      <option value="Peru" data-flag="PE.png" data-alternative-spellings="PE">Peru</option>
+      <option value="Philippines" data-flag="PH.png" data-alternative-spellings="PH Pilipinas" data-relevancy-booster="1.5">Philippines</option>
+      <option value="Pitcairn" data-flag="PN.png" data-alternative-spellings="PN" data-relevancy-booster="0.5">Pitcairn</option>
+      <option value="Poland" data-flag="PL.png" data-alternative-spellings="PL Polska" data-relevancy-booster="1.25">Poland</option>
+      <option value="Portugal" data-flag="PT.png" data-alternative-spellings="PT Portuguesa" data-relevancy-booster="1.5">Portugal</option>
+      <option value="Puerto Rico" data-flag="PR.png" data-alternative-spellings="PR">Puerto Rico</option>
+      <option value="Qatar" data-flag="QA.png" data-alternative-spellings="QA قطر">Qatar</option>
+      <option value="Réunion" data-flag="RE.png" data-alternative-spellings="RE Reunion">Réunion</option>
+      <option value="Romania" data-flag="RO.png" data-alternative-spellings="RO Rumania Roumania România">Romania</option>
+      <option value="Russian Federation" data-flag="RU.png" data-alternative-spellings="RU Rossiya Российская Россия" data-relevancy-booster="2.5">Russian Federation</option>
+      <option value="Rwanda" data-flag="RW.png" data-alternative-spellings="RW">Rwanda</option>
+      <option value="Saint Barthélemy" data-flag="BL.png" data-alternative-spellings="BL St. Barthelemy">Saint Barthélemy</option>
+      <option value="Saint Helena" data-flag="SH.png" data-alternative-spellings="SH St.">Saint Helena</option>
+      <option value="Saint Kitts and Nevis" data-flag="KN.png" data-alternative-spellings="KN St.">Saint Kitts and Nevis</option>
+      <option value="Saint Lucia" data-flag="LC.png" data-alternative-spellings="LC St.">Saint Lucia</option>
+      <option value="Saint Martin (French Part)" data-flag="MF.png" data-alternative-spellings="MF St.">Saint Martin (French Part)</option>
+      <option value="Saint Pierre and Miquelon" data-flag="PM.png" data-alternative-spellings="PM St.">Saint Pierre and Miquelon</option>
+      <option value="Saint Vincent and the Grenadines" data-flag="VC.png" data-alternative-spellings="VC St.">Saint Vincent and the Grenadines</option>
+      <option value="Samoa" data-flag="WS.png" data-alternative-spellings="WS">Samoa</option>
+      <option value="San Marino" data-flag="SM.png" data-alternative-spellings="SM">San Marino</option>
+      <option value="Sao Tome and Principe" data-flag="ST.png" data-alternative-spellings="ST">Sao Tome and Principe</option>
+      <option value="Saudi Arabia" data-flag="SA.png" data-alternative-spellings="SA السعودية">Saudi Arabia</option>
+      <option value="Senegal" data-flag="SN.png" data-alternative-spellings="SN Sénégal">Senegal</option>
+      <option value="Serbia" data-flag="RS.png" data-alternative-spellings="RS Србија Srbija">Serbia</option>
+      <option value="Seychelles" data-flag="SC.png" data-alternative-spellings="SC" data-relevancy-booster="0.5">Seychelles</option>
+      <option value="Sierra Leone" data-flag="SL.png" data-alternative-spellings="SL">Sierra Leone</option>
+      <option value="Singapore" data-flag="SG.png" data-alternative-spellings="SG Singapura  சிங்கப்பூர் குடியரசு 新加坡共和国">Singapore</option>
+      <option value="Sint Maarten (Dutch Part)" data-flag="SX.png" data-alternative-spellings="SX">Sint Maarten (Dutch Part)</option>
+      <option value="Slovakia" data-flag="SK.png" data-alternative-spellings="SK Slovenská Slovensko">Slovakia</option>
+      <option value="Slovenia" data-flag="SI.png" data-alternative-spellings="SI Slovenija">Slovenia</option>
+      <option value="Solomon Islands" data-flag="SB.png" data-alternative-spellings="SB">Solomon Islands</option>
+      <option value="Somalia" data-flag="SO.png" data-alternative-spellings="SO الصومال">Somalia</option>
+      <option value="South Africa" data-flag="ZA.png" data-alternative-spellings="ZA RSA Suid-Afrika">South Africa</option>
+      <option value="South Georgia and the South Sandwich Islands" data-flag="GS.png" data-alternative-spellings="GS">South Georgia and the South Sandwich Islands</option>
+      <option value="South Sudan" data-flag="SS.png" data-alternative-spellings="SS">South Sudan</option>
+      <option value="Spain" data-flag="ES.png" data-alternative-spellings="ES España" data-relevancy-booster="2">Spain</option>
+      <option value="Sri Lanka" data-flag="LK.png" data-alternative-spellings="LK ශ්‍රී ලංකා இலங்கை Ceylon">Sri Lanka</option>
+      <option value="Sudan" data-flag="SD.png" data-alternative-spellings="SD السودان">Sudan</option>
+      <option value="Suriname" data-flag="SR.png" data-alternative-spellings="SR शर्नम् Sarnam Sranangron">Suriname</option>
+      <option value="Svalbard and Jan Mayen" data-flag="SJ.png" data-alternative-spellings="SJ" data-relevancy-booster="0.5">Svalbard and Jan Mayen</option>
+      <option value="Swaziland" data-flag="SZ.png" data-alternative-spellings="SZ weSwatini Swatini Ngwane">Swaziland</option>
+      <option value="Sweden" data-flag="SE.png" data-alternative-spellings="SE Sverige" data-relevancy-booster="1.5">Sweden</option>
+      <option value="Switzerland" data-flag="CH.png" data-alternative-spellings="CH Swiss Confederation Schweiz Suisse Svizzera Svizra" data-relevancy-booster="1.5">Switzerland</option>
+      <option value="Syrian Arab Republic" data-flag="SY.png" data-alternative-spellings="SY Syria سورية">Syrian Arab Republic</option>
+      <option value="Taiwan, Province of China" data-flag="TW.png" data-alternative-spellings="TW 台灣 臺灣">Taiwan, Province of China</option>
+      <option value="Tajikistan" data-flag="TJ.png" data-alternative-spellings="TJ Тоҷикистон Toçikiston">Tajikistan</option>
+      <option value="Tanzania, United Republic of" data-flag="TZ.png" data-alternative-spellings="TZ">Tanzania, United Republic of</option>
+      <option value="Thailand" data-flag="TH.png" data-alternative-spellings="TH ประเทศไทย Prathet Thai">Thailand</option>
+      <option value="Timor-Leste" data-flag="TL.png" data-alternative-spellings="TL">Timor-Leste</option>
+      <option value="Togo" data-flag="TG.png" data-alternative-spellings="TG Togolese">Togo</option>
+      <option value="Tokelau" data-flag="TK.png" data-alternative-spellings="TK" data-relevancy-booster="0.5">Tokelau</option>
+      <option value="Tonga" data-flag="TO.png" data-alternative-spellings="TO">Tonga</option>
+      <option value="Trinidad and Tobago" data-flag="TT.png" data-alternative-spellings="TT">Trinidad and Tobago</option>
+      <option value="Tunisia" data-flag="TN.png" data-alternative-spellings="TN تونس">Tunisia</option>
+      <option value="Turkey" data-flag="TR.png" data-alternative-spellings="TR Türkiye Turkiye">Turkey</option>
+      <option value="Turkmenistan" data-flag="TM.png" data-alternative-spellings="TM Türkmenistan">Turkmenistan</option>
+      <option value="Turks and Caicos Islands" data-flag="TC.png" data-alternative-spellings="TC" data-relevancy-booster="0.5">Turks and Caicos Islands</option>
+      <option value="Tuvalu" data-flag="TV.png" data-alternative-spellings="TV" data-relevancy-booster="0.5">Tuvalu</option>
+      <option value="Uganda" data-flag="UG.png" data-alternative-spellings="UG">Uganda</option>
+      <option value="Ukraine" data-flag="UA.png" data-alternative-spellings="UA Ukrayina Україна">Ukraine</option>
+      <option value="United Arab Emirates" data-flag="AE.png" data-alternative-spellings="AE UAE الإمارات">United Arab Emirates</option>
+      <option value="United Kingdom" data-flag="GB.png" data-alternative-spellings="GB Great Britain England UK Wales Scotland Northern Ireland" data-relevancy-booster="2.5">United Kingdom</option>
+      <option value="United States" data-relevancy-booster="3.5" data-flag="US.png" data-alternative-spellings="US USA United States of America">United States</option>
+      <option value="United States Minor Outlying Islands" data-flag="UM.png" data-alternative-spellings="UM">United States Minor Outlying Islands</option>
+      <option value="Uruguay" data-flag="UY.png" data-alternative-spellings="UY">Uruguay</option>
+      <option value="Uzbekistan" data-flag="UZ.png" data-alternative-spellings="UZ Ўзбекистон O'zbekstan O‘zbekiston">Uzbekistan</option>
+      <option value="Vanuatu" data-flag="VU.png" data-alternative-spellings="VU">Vanuatu</option>
+      <option value="Venezuela" data-flag="VE.png" data-alternative-spellings="VE">Venezuela</option>
+      <option value="Vietnam" data-flag="VN.png" data-alternative-spellings="VN Việt Nam" data-relevancy-booster="1.5">Vietnam</option>
+      <option value="Virgin Islands, British" data-flag="VG.png" data-alternative-spellings="VG" data-relevancy-booster="0.5">Virgin Islands, British</option>
+      <option value="Virgin Islands, U.S." data-flag="VI.png" data-alternative-spellings="VI" data-relevancy-booster="0.5">Virgin Islands, U.S.</option>
+      <option value="Wallis and Futuna" data-flag="WF.png" data-alternative-spellings="WF" data-relevancy-booster="0.5">Wallis and Futuna</option>
+      <option value="Western Sahara" data-flag="EH.png" data-alternative-spellings="EH لصحراء الغربية">Western Sahara</option>
+      <option value="Yemen" data-flag="YE.png" data-alternative-spellings="YE اليمن">Yemen</option>
+      <option value="Zambia" data-flag="ZM.png" data-alternative-spellings="ZM">Zambia</option>
+      <option value="Zimbabwe" data-flag="ZW.png" data-alternative-spellings="ZW">Zimbabwe</option>
     </select>
-
-
-
-      <img id="flag2" src="./flags/LV.png" />
-    <select name="Country" id="country-selector2" autofocus="autofocus" autocorrect="off" autocomplete="off">
-      <option value="Afghanistan" data-flag="AF" data-alternative-spellings="AF افغانستان">Afghanistan</option>
-      <option value="Åland Islands" data-flag="AX" data-alternative-spellings="AX Aaland Aland" data-relevancy-booster="0.5">Åland Islands</option>
-      <option value="Albania" data-flag="AL" data-alternative-spellings="AL">Albania</option>
-      <option value="Algeria" data-flag="DZ" data-alternative-spellings="DZ الجزائر">Algeria</option>
-      <option value="American Samoa" data-flag="AS" data-alternative-spellings="AS" data-relevancy-booster="0.5">American Samoa</option>
-      <option value="Andorra" data-flag="AD" data-alternative-spellings="AD" data-relevancy-booster="0.5">Andorra</option>
-      <option value="Angola" data-flag="AO" data-alternative-spellings="AO">Angola</option>
-      <option value="Anguilla" data-flag="AI" data-alternative-spellings="AI" data-relevancy-booster="0.5">Anguilla</option>
-      <option value="Antarctica" data-flag="AQ" data-alternative-spellings="AQ" data-relevancy-booster="0.5">Antarctica</option>
-      <option value="Antigua And Barbuda" data-flag="AG" data-alternative-spellings="AG" data-relevancy-booster="0.5">Antigua And Barbuda</option>
-      <option value="Argentina" data-flag="AR" data-alternative-spellings="AR">Argentina</option>
-      <option value="Armenia" data-flag="AM" data-alternative-spellings="AM Հայաստան">Armenia</option>
-      <option value="Aruba" data-flag="AW" data-alternative-spellings="AW" data-relevancy-booster="0.5">Aruba</option>
-      <option value="Australia" data-flag="AU" data-alternative-spellings="AU" data-relevancy-booster="1.5">Australia</option>
-      <option value="Austria" data-flag="AT" data-alternative-spellings="AT Österreich Osterreich Oesterreich ">Austria</option>
-      <option value="Azerbaijan" data-flag="AZ" data-alternative-spellings="AZ">Azerbaijan</option>
-      <option value="Bahamas" data-flag="BS" data-alternative-spellings="BS">Bahamas</option>
-      <option value="Bahrain" data-flag="BH" data-alternative-spellings="BH البحرين">Bahrain</option>
-      <option value="Bangladesh" data-flag="BD" data-alternative-spellings="BD বাংলাদেশ" data-relevancy-booster="2">Bangladesh</option>
-      <option value="Barbados" data-flag="BB" data-alternative-spellings="BB">Barbados</option>
-      <option value="Belarus" data-flag="BY" data-alternative-spellings="BY Беларусь">Belarus</option>
-      <option value="Belgium" data-flag="BE" data-alternative-spellings="BE België Belgie Belgien Belgique" data-relevancy-booster="1.5">Belgium</option>
-      <option value="Belize" data-flag="BZ" data-alternative-spellings="BZ">Belize</option>
-      <option value="Benin" data-flag="BJ" data-alternative-spellings="BJ">Benin</option>
-      <option value="Bermuda" data-flag="BM" data-alternative-spellings="BM" data-relevancy-booster="0.5">Bermuda</option>
-      <option value="Bhutan" data-flag="BT" data-alternative-spellings="BT भूटान">Bhutan</option>
-      <option value="Bolivia" data-flag="BO" data-alternative-spellings="BO">Bolivia</option>
-      <option value="Bonaire, Sint Eustatius and Saba" data-flag="BQ" data-alternative-spellings="BQ">Bonaire, Sint Eustatius and Saba</option>
-      <option value="Bosnia and Herzegovina" data-flag="BA" data-alternative-spellings="BA Босна и Херцеговина">Bosnia and Herzegovina</option>
-      <option value="Botswana" data-flag="BW" data-alternative-spellings="BW">Botswana</option>
-      <option value="Bouvet Island" data-flag="BV" data-alternative-spellings="BV">Bouvet Island</option>
-      <option value="Brazil" data-flag="BR" data-alternative-spellings="BR Brasil" data-relevancy-booster="2">Brazil</option>
-      <option value="British Indian Ocean Territory" data-flag="IO" data-alternative-spellings="IO">British Indian Ocean Territory</option>
-      <option value="Brunei Darussalam" data-flag="BN" data-alternative-spellings="BN">Brunei Darussalam</option>
-      <option value="Bulgaria" data-flag="BG" data-alternative-spellings="BG България">Bulgaria</option>
-      <option value="Burkina Faso" data-flag="BF" data-alternative-spellings="BF">Burkina Faso</option>
-      <option value="Burundi" data-flag="BI" data-alternative-spellings="BI">Burundi</option>
-      <option value="Cambodia" data-flag="KH" data-alternative-spellings="KH កម្ពុជា">Cambodia</option>
-      <option value="Cameroon" data-flag="CM" data-alternative-spellings="CM">Cameroon</option>
-      <option value="Canada" data-flag="CA" data-alternative-spellings="CA" data-relevancy-booster="2">Canada</option>
-      <option value="Cape Verde" data-flag="CV" data-alternative-spellings="CV Cabo">Cape Verde</option>
-      <option value="Cayman Islands" data-flag="KY" data-alternative-spellings="KY" data-relevancy-booster="0.5">Cayman Islands</option>
-      <option value="Central African Republic" data-flag="CF" data-alternative-spellings="CF">Central African Republic</option>
-      <option value="Chad" data-flag="TD" data-alternative-spellings="TD تشاد‎ Tchad">Chad</option>
-      <option value="Chile" data-flag="CL" data-alternative-spellings="CL">Chile</option>
-      <option value="China" data-relevancy-booster="3.5" data-flag="CN" data-alternative-spellings="CN Zhongguo Zhonghua Peoples Republic 中国/中华">China</option>
-      <option value="Christmas Island" data-flag="CX" data-alternative-spellings="CX" data-relevancy-booster="0.5">Christmas Island</option>
-      <option value="Cocos (Keeling) Islands" data-flag="CC" data-alternative-spellings="CC" data-relevancy-booster="0.5">Cocos (Keeling) Islands</option>
-      <option value="Colombia" data-flag="CO" data-alternative-spellings="CO">Colombia</option>
-      <option value="Comoros" data-flag="KM" data-alternative-spellings="KM جزر القمر">Comoros</option>
-      <option value="Congo" data-flag="CG" data-alternative-spellings="CG">Congo</option>
-      <option value="Congo, the Democratic Republic of the" data-flag="CD" data-alternative-spellings="CD Congo-Brazzaville Repubilika ya Kongo">Congo, the Democratic Republic of the</option>
-      <option value="Cook Islands" data-flag="CK" data-alternative-spellings="CK" data-relevancy-booster="0.5">Cook Islands</option>
-      <option value="Costa Rica" data-flag="CR" data-alternative-spellings="CR">Costa Rica</option>
-      <option value="Côte d'Ivoire" data-flag="CI" data-alternative-spellings="CI Cote dIvoire">Côte d'Ivoire</option>
-      <option value="Croatia" data-flag="HR" data-alternative-spellings="HR Hrvatska">Croatia</option>
-      <option value="Cuba" data-flag="CU" data-alternative-spellings="CU">Cuba</option>
-      <option value="Curaçao" data-flag="CW" data-alternative-spellings="CW Curacao">Curaçao</option>
-      <option value="Cyprus" data-flag="CY" data-alternative-spellings="CY Κύπρος Kýpros Kıbrıs">Cyprus</option>
-      <option value="Czech Republic" data-flag="CZ" data-alternative-spellings="CZ Česká Ceska">Czech Republic</option>
-      <option value="Denmark" data-flag="DK" data-alternative-spellings="DK Danmark" data-relevancy-booster="1.5">Denmark</option>
-      <option value="Djibouti" data-flag="DJ" data-alternative-spellings="DJ جيبوتي‎ Jabuuti Gabuuti">Djibouti</option>
-      <option value="Dominica" data-flag="DM" data-alternative-spellings="DM Dominique" data-relevancy-booster="0.5">Dominica</option>
-      <option value="Dominican Republic" data-flag="DO" data-alternative-spellings="DO">Dominican Republic</option>
-      <option value="Ecuador" data-flag="EC" data-alternative-spellings="EC">Ecuador</option>
-      <option value="Egypt" data-flag="EG" data-alternative-spellings="EG" data-relevancy-booster="1.5">Egypt</option>
-      <option value="El Salvador" data-flag="SV" data-alternative-spellings="SV">El Salvador</option>
-      <option value="Equatorial Guinea" data-flag="GQ" data-alternative-spellings="GQ">Equatorial Guinea</option>
-      <option value="Eritrea" data-flag="ER" data-alternative-spellings="ER إرتريا ኤርትራ">Eritrea</option>
-      <option value="Estonia" data-flag="EE" data-alternative-spellings="EE Eesti">Estonia</option>
-      <option value="Ethiopia" data-flag="ET" data-alternative-spellings="ET ኢትዮጵያ">Ethiopia</option>
-      <option value="Falkland Islands (Malvinas)" data-flag="FK" data-alternative-spellings="FK" data-relevancy-booster="0.5">Falkland Islands (Malvinas)</option>
-      <option value="Faroe Islands" data-flag="FO" data-alternative-spellings="FO Føroyar Færøerne" data-relevancy-booster="0.5">Faroe Islands</option>
-      <option value="Fiji" data-flag="FJ" data-alternative-spellings="FJ Viti फ़िजी">Fiji</option>
-      <option value="Finland" data-flag="FI" data-alternative-spellings="FI Suomi">Finland</option>
-      <option value="France" data-flag="FR" data-alternative-spellings="FR République française" data-relevancy-booster="2.5">France</option>
-      <option value="French Guiana" data-flag="GF" data-alternative-spellings="GF">French Guiana</option>
-      <option value="French Polynesia" data-flag="PF" data-alternative-spellings="PF Polynésie française">French Polynesia</option>
-      <option value="French Southern Territories" data-flag="TF" data-alternative-spellings="TF">French Southern Territories</option>
-      <option value="Gabon" data-flag="GA" data-alternative-spellings="GA République Gabonaise">Gabon</option>
-      <option value="Gambia" data-flag="GM" data-alternative-spellings="GM">Gambia</option>
-      <option value="Georgia" data-flag="GE" data-alternative-spellings="GE საქართველო">Georgia</option>
-      <option value="Germany" data-flag="DE" data-alternative-spellings="DE Bundesrepublik Deutschland" data-relevancy-booster="3">Germany</option>
-      <option value="Ghana" data-flag="GH" data-alternative-spellings="GH">Ghana</option>
-      <option value="Gibraltar" data-flag="GI" data-alternative-spellings="GI" data-relevancy-booster="0.5">Gibraltar</option>
-      <option value="Greece" data-flag="GR" data-alternative-spellings="GR Ελλάδα" data-relevancy-booster="1.5">Greece</option>
-      <option value="Greenland" data-flag="GL" data-alternative-spellings="GL grønland" data-relevancy-booster="0.5">Greenland</option>
-      <option value="Grenada" data-flag="GD" data-alternative-spellings="GD">Grenada</option>
-      <option value="Guadeloupe" data-flag="GP" data-alternative-spellings="GP">Guadeloupe</option>
-      <option value="Guam" data-flag="GU" data-alternative-spellings="GU">Guam</option>
-      <option value="Guatemala" data-flag="GT" data-alternative-spellings="GT">Guatemala</option>
-      <option value="Guernsey" data-flag="GG" data-alternative-spellings="GG" data-relevancy-booster="0.5">Guernsey</option>
-      <option value="Guinea" data-flag="GN" data-alternative-spellings="GN">Guinea</option>
-      <option value="Guinea-Bissau" data-flag="GW" data-alternative-spellings="GW">Guinea-Bissau</option>
-      <option value="Guyana" data-flag="GY" data-alternative-spellings="GY">Guyana</option>
-      <option value="Haiti" data-flag="HT" data-alternative-spellings="HT">Haiti</option>
-      <option value="Heard Island and McDonald Islands" data-flag="HM" data-alternative-spellings="HM">Heard Island and McDonald Islands</option>
-      <option value="Holy See (Vatican City State)" data-flag="VA" data-alternative-spellings="VA" data-relevancy-booster="0.5">Holy See (Vatican City State)</option>
-      <option value="Honduras" data-flag="HN" data-alternative-spellings="HN">Honduras</option>
-      <option value="Hong Kong" data-flag="HK" data-alternative-spellings="HK 香港">Hong Kong</option>
-      <option value="Hungary" data-flag="HU" data-alternative-spellings="HU Magyarország">Hungary</option>
-      <option value="Iceland" data-flag="IS" data-alternative-spellings="IS Island">Iceland</option>
-      <option value="India" data-flag="IN" data-alternative-spellings="IN भारत गणराज्य Hindustan" data-relevancy-booster="3">India</option>
-      <option value="Indonesia" data-flag="ID" data-alternative-spellings="ID" data-relevancy-booster="2">Indonesia</option>
-      <option value="Iran, Islamic Republic of" data-flag="IR" data-alternative-spellings="IR ایران">Iran, Islamic Republic of</option>
-      <option value="Iraq" data-flag="IQ" data-alternative-spellings="IQ العراق‎">Iraq</option>
-      <option value="Ireland" data-flag="IE" data-alternative-spellings="IE Éire" data-relevancy-booster="1.2">Ireland</option>
-      <option value="Isle of Man" data-flag="IM" data-alternative-spellings="IM" data-relevancy-booster="0.5">Isle of Man</option>
-      <option value="Israel" data-flag="IL" data-alternative-spellings="IL إسرائيل ישראל">Israel</option>
-      <option value="Italy" data-flag="IT" data-alternative-spellings="IT Italia" data-relevancy-booster="2">Italy</option>
-      <option value="Jamaica" data-flag="JM" data-alternative-spellings="JM">Jamaica</option>
-      <option value="Japan" data-flag="JP" data-alternative-spellings="JP Nippon Nihon 日本" data-relevancy-booster="2.5">Japan</option>
-      <option value="Jersey" data-flag="JE" data-alternative-spellings="JE" data-relevancy-booster="0.5">Jersey</option>
-      <option value="Jordan" data-flag="JO" data-alternative-spellings="JO الأردن">Jordan</option>
-      <option value="Kazakhstan" data-flag="KZ" data-alternative-spellings="KZ Қазақстан Казахстан">Kazakhstan</option>
-      <option value="Kenya" data-flag="KE" data-alternative-spellings="KE">Kenya</option>
-      <option value="Kiribati" data-flag="KI" data-alternative-spellings="KI">Kiribati</option>
-      <option value="Korea, Democratic People's Republic of" data-flag="KP" data-alternative-spellings="KP North Korea">Korea, Democratic People's Republic of</option>
-      <option value="Korea, Republic of" data-flag="KR" data-alternative-spellings="KR South Korea" data-relevancy-booster="1.5">Korea, Republic of</option>
-      <option value="Kuwait" data-flag="KW" data-alternative-spellings="KW الكويت">Kuwait</option>
-      <option value="Kyrgyzstan" data-flag="KG" data-alternative-spellings="KG Кыргызстан">Kyrgyzstan</option>
-      <option value="+85" data-code="85" data-flag="LA" data-alternative-spellings="LA">Lao People's Democratic Republic</option>
-      <option selected="selected" value="+371" data-code="371" data-price="&euro;0.15" data-flag="LV" data-alternative-spellings="LV Latvija">Latvia</option>
-      <option value="Lebanon" data-flag="LB" data-alternative-spellings="LB لبنان">Lebanon</option>
-      <option value="Lesotho" data-flag="LS" data-alternative-spellings="LS">Lesotho</option>
-      <option value="Liberia" data-flag="LR" data-alternative-spellings="LR">Liberia</option>
-      <option value="Libyan Arab Jamahiriya" data-flag="LY" data-alternative-spellings="LY ليبيا">Libyan Arab Jamahiriya</option>
-      <option value="Liechtenstein" data-flag="LI" data-alternative-spellings="LI">Liechtenstein</option>
-      <option value="Lithuania" data-code="3" data-flag="LT" data-alternative-spellings="LT Lietuva">Lithuania</option>
-      <option value="Luxembourg" data-flag="LU" data-alternative-spellings="LU">Luxembourg</option>
-      <option value="Macao" data-flag="MO" data-alternative-spellings="MO">Macao</option>
-      <option value="Macedonia, The Former Yugoslav Republic Of" data-flag="MK" data-alternative-spellings="MK Македонија">Macedonia, The Former Yugoslav Republic Of</option>
-      <option value="Madagascar" data-flag="MG" data-alternative-spellings="MG Madagasikara">Madagascar</option>
-      <option value="Malawi" data-flag="MW" data-alternative-spellings="MW">Malawi</option>
-      <option value="Malaysia" data-flag="MY" data-alternative-spellings="MY">Malaysia</option>
-      <option value="Maldives" data-flag="MV" data-alternative-spellings="MV">Maldives</option>
-      <option value="Mali" data-flag="ML" data-alternative-spellings="ML">Mali</option>
-      <option value="Malta" data-flag="MT" data-alternative-spellings="MT">Malta</option>
-      <option value="Marshall Islands" data-flag="MH" data-alternative-spellings="MH" data-relevancy-booster="0.5">Marshall Islands</option>
-      <option value="Martinique" data-flag="MQ" data-alternative-spellings="MQ">Martinique</option>
-      <option value="Mauritania" data-flag="MR" data-alternative-spellings="MR الموريتانية">Mauritania</option>
-      <option value="Mauritius" data-flag="MU" data-alternative-spellings="MU">Mauritius</option>
-      <option value="Mayotte" data-flag="YT" data-alternative-spellings="YT">Mayotte</option>
-      <option value="Mexico" data-flag="MX" data-alternative-spellings="MX Mexicanos" data-relevancy-booster="1.5">Mexico</option>
-      <option value="Micronesia, Federated States of" data-flag="FM" data-alternative-spellings="FM">Micronesia, Federated States of</option>
-      <option value="Moldova, Republic of" data-flag="MD" data-alternative-spellings="MD">Moldova, Republic of</option>
-      <option value="Monaco" data-flag="MC" data-alternative-spellings="MC">Monaco</option>
-      <option value="Mongolia" data-flag="MN" data-alternative-spellings="MN Mongγol ulus Монгол улс">Mongolia</option>
-      <option value="Montenegro" data-flag="ME" data-alternative-spellings="ME">Montenegro</option>
-      <option value="Montserrat" data-flag="MS" data-alternative-spellings="MS" data-relevancy-booster="0.5">Montserrat</option>
-      <option value="Morocco" data-flag="MA" data-alternative-spellings="MA المغرب">Morocco</option>
-      <option value="Mozambique" data-flag="MZ" data-alternative-spellings="MZ Moçambique">Mozambique</option>
-      <option value="Myanmar" data-flag="MM" data-alternative-spellings="MM">Myanmar</option>
-      <option value="Namibia" data-flag="NA" data-alternative-spellings="NA Namibië">Namibia</option>
-      <option value="Nauru" data-flag="NR" data-alternative-spellings="NR Naoero" data-relevancy-booster="0.5">Nauru</option>
-      <option value="Nepal" data-flag="NP" data-alternative-spellings="NP नेपाल">Nepal</option>
-      <option value="Netherlands" data-flag="NL" data-alternative-spellings="NL Holland Nederland" data-relevancy-booster="1.5">Netherlands</option>
-      <option value="New Caledonia" data-flag="NC" data-alternative-spellings="NC" data-relevancy-booster="0.5">New Caledonia</option>
-      <option value="New Zealand" data-flag="NZ" data-alternative-spellings="NZ Aotearoa">New Zealand</option>
-      <option value="Nicaragua" data-flag="NI" data-alternative-spellings="NI">Nicaragua</option>
-      <option value="Niger" data-flag="NE" data-alternative-spellings="NE Nijar">Niger</option>
-      <option value="Nigeria" data-flag="NG" data-alternative-spellings="NG Nijeriya Naíjíríà" data-relevancy-booster="1.5">Nigeria</option>
-      <option value="Niue" data-flag="NU" data-alternative-spellings="NU" data-relevancy-booster="0.5">Niue</option>
-      <option value="Norfolk Island" data-flag="NF" data-alternative-spellings="NF" data-relevancy-booster="0.5">Norfolk Island</option>
-      <option value="Northern Mariana Islands" data-flag="MP" data-alternative-spellings="MP" data-relevancy-booster="0.5">Northern Mariana Islands</option>
-      <option value="Norway" data-flag="NO" data-alternative-spellings="NO Norge Noreg" data-relevancy-booster="1.5">Norway</option>
-      <option value="Oman" data-flag="OM" data-alternative-spellings="OM عمان">Oman</option>
-      <option value="Pakistan" data-flag="PK" data-alternative-spellings="PK پاکستان" data-relevancy-booster="2">Pakistan</option>
-      <option value="Palau" data-flag="PW" data-alternative-spellings="PW" data-relevancy-booster="0.5">Palau</option>
-      <option value="Palestinian Territory, Occupied" data-flag="PS" data-alternative-spellings="PS فلسطين">Palestinian Territory, Occupied</option>
-      <option value="Panama" data-flag="PA" data-alternative-spellings="PA">Panama</option>
-      <option value="Papua New Guinea" data-flag="PG" data-alternative-spellings="PG">Papua New Guinea</option>
-      <option value="Paraguay" data-flag="PY" data-alternative-spellings="PY">Paraguay</option>
-      <option value="Peru" data-flag="PE" data-alternative-spellings="PE">Peru</option>
-      <option value="Philippines" data-flag="PH" data-alternative-spellings="PH Pilipinas" data-relevancy-booster="1.5">Philippines</option>
-      <option value="Pitcairn" data-flag="PN" data-alternative-spellings="PN" data-relevancy-booster="0.5">Pitcairn</option>
-      <option value="Poland" data-flag="PL" data-alternative-spellings="PL Polska" data-relevancy-booster="1.25">Poland</option>
-      <option value="Portugal" data-flag="PT" data-alternative-spellings="PT Portuguesa" data-relevancy-booster="1.5">Portugal</option>
-      <option value="Puerto Rico" data-flag="PR" data-alternative-spellings="PR">Puerto Rico</option>
-      <option value="Qatar" data-flag="QA" data-alternative-spellings="QA قطر">Qatar</option>
-      <option value="Réunion" data-flag="RE" data-alternative-spellings="RE Reunion">Réunion</option>
-      <option value="Romania" data-flag="RO" data-alternative-spellings="RO Rumania Roumania România">Romania</option>
-      <option value="Russian Federation" data-flag="RU" data-alternative-spellings="RU Rossiya Российская Россия" data-relevancy-booster="2.5">Russian Federation</option>
-      <option value="Rwanda" data-flag="RW" data-alternative-spellings="RW">Rwanda</option>
-      <option value="Saint Barthélemy" data-flag="BL" data-alternative-spellings="BL St. Barthelemy">Saint Barthélemy</option>
-      <option value="Saint Helena" data-flag="SH" data-alternative-spellings="SH St.">Saint Helena</option>
-      <option value="Saint Kitts and Nevis" data-flag="KN" data-alternative-spellings="KN St.">Saint Kitts and Nevis</option>
-      <option value="Saint Lucia" data-flag="LC" data-alternative-spellings="LC St.">Saint Lucia</option>
-      <option value="Saint Martin (French Part)" data-flag="MF" data-alternative-spellings="MF St.">Saint Martin (French Part)</option>
-      <option value="Saint Pierre and Miquelon" data-flag="PM" data-alternative-spellings="PM St.">Saint Pierre and Miquelon</option>
-      <option value="Saint Vincent and the Grenadines" data-flag="VC" data-alternative-spellings="VC St.">Saint Vincent and the Grenadines</option>
-      <option value="Samoa" data-flag="WS" data-alternative-spellings="WS">Samoa</option>
-      <option value="San Marino" data-flag="SM" data-alternative-spellings="SM">San Marino</option>
-      <option value="Sao Tome and Principe" data-flag="ST" data-alternative-spellings="ST">Sao Tome and Principe</option>
-      <option value="Saudi Arabia" data-flag="SA" data-alternative-spellings="SA السعودية">Saudi Arabia</option>
-      <option value="Senegal" data-flag="SN" data-alternative-spellings="SN Sénégal">Senegal</option>
-      <option value="Serbia" data-flag="RS" data-alternative-spellings="RS Србија Srbija">Serbia</option>
-      <option value="Seychelles" data-flag="SC" data-alternative-spellings="SC" data-relevancy-booster="0.5">Seychelles</option>
-      <option value="Sierra Leone" data-flag="SL" data-alternative-spellings="SL">Sierra Leone</option>
-      <option value="Singapore" data-flag="SG" data-alternative-spellings="SG Singapura  சிங்கப்பூர் குடியரசு 新加坡共和国">Singapore</option>
-      <option value="Sint Maarten (Dutch Part)" data-flag="SX" data-alternative-spellings="SX">Sint Maarten (Dutch Part)</option>
-      <option value="Slovakia" data-flag="SK" data-alternative-spellings="SK Slovenská Slovensko">Slovakia</option>
-      <option value="Slovenia" data-flag="SI" data-alternative-spellings="SI Slovenija">Slovenia</option>
-      <option value="Solomon Islands" data-flag="SB" data-alternative-spellings="SB">Solomon Islands</option>
-      <option value="Somalia" data-flag="SO" data-alternative-spellings="SO الصومال">Somalia</option>
-      <option value="South Africa" data-flag="ZA" data-alternative-spellings="ZA RSA Suid-Afrika">South Africa</option>
-      <option value="South Georgia and the South Sandwich Islands" data-flag="GS" data-alternative-spellings="GS">South Georgia and the South Sandwich Islands</option>
-      <option value="South Sudan" data-flag="SS" data-alternative-spellings="SS">South Sudan</option>
-      <option value="Spain" data-flag="ES" data-alternative-spellings="ES España" data-relevancy-booster="2">Spain</option>
-      <option value="Sri Lanka" data-flag="LK" data-alternative-spellings="LK ශ්‍රී ලංකා இலங்கை Ceylon">Sri Lanka</option>
-      <option value="Sudan" data-flag="SD" data-alternative-spellings="SD السودان">Sudan</option>
-      <option value="Suriname" data-flag="SR" data-alternative-spellings="SR शर्नम् Sarnam Sranangron">Suriname</option>
-      <option value="Svalbard and Jan Mayen" data-flag="SJ" data-alternative-spellings="SJ" data-relevancy-booster="0.5">Svalbard and Jan Mayen</option>
-      <option value="Swaziland" data-flag="SZ" data-alternative-spellings="SZ weSwatini Swatini Ngwane">Swaziland</option>
-      <option value="Sweden" data-flag="SE" data-alternative-spellings="SE Sverige" data-relevancy-booster="1.5">Sweden</option>
-      <option value="Switzerland" data-flag="CH" data-alternative-spellings="CH Swiss Confederation Schweiz Suisse Svizzera Svizra" data-relevancy-booster="1.5">Switzerland</option>
-      <option value="Syrian Arab Republic" data-flag="SY" data-alternative-spellings="SY Syria سورية">Syrian Arab Republic</option>
-      <option value="Taiwan, Province of China" data-flag="TW" data-alternative-spellings="TW 台灣 臺灣">Taiwan, Province of China</option>
-      <option value="Tajikistan" data-flag="TJ" data-alternative-spellings="TJ Тоҷикистон Toçikiston">Tajikistan</option>
-      <option value="Tanzania, United Republic of" data-flag="TZ" data-alternative-spellings="TZ">Tanzania, United Republic of</option>
-      <option value="Thailand" data-flag="TH" data-alternative-spellings="TH ประเทศไทย Prathet Thai">Thailand</option>
-      <option value="Timor-Leste" data-flag="TL" data-alternative-spellings="TL">Timor-Leste</option>
-      <option value="Togo" data-flag="TG" data-alternative-spellings="TG Togolese">Togo</option>
-      <option value="Tokelau" data-flag="TK" data-alternative-spellings="TK" data-relevancy-booster="0.5">Tokelau</option>
-      <option value="Tonga" data-flag="TO" data-alternative-spellings="TO">Tonga</option>
-      <option value="Trinidad and Tobago" data-flag="TT" data-alternative-spellings="TT">Trinidad and Tobago</option>
-      <option value="Tunisia" data-flag="TN" data-alternative-spellings="TN تونس">Tunisia</option>
-      <option value="Turkey" data-flag="TR" data-alternative-spellings="TR Türkiye Turkiye">Turkey</option>
-      <option value="Turkmenistan" data-flag="TM" data-alternative-spellings="TM Türkmenistan">Turkmenistan</option>
-      <option value="Turks and Caicos Islands" data-flag="TC" data-alternative-spellings="TC" data-relevancy-booster="0.5">Turks and Caicos Islands</option>
-      <option value="Tuvalu" data-flag="TV" data-alternative-spellings="TV" data-relevancy-booster="0.5">Tuvalu</option>
-      <option value="Uganda" data-flag="UG" data-alternative-spellings="UG">Uganda</option>
-      <option value="Ukraine" data-flag="UA" data-alternative-spellings="UA Ukrayina Україна">Ukraine</option>
-      <option value="United Arab Emirates" data-flag="AE" data-alternative-spellings="AE UAE الإمارات">United Arab Emirates</option>
-      <option value="United Kingdom" data-flag="GB" data-alternative-spellings="GB Great Britain England UK Wales Scotland Northern Ireland" data-relevancy-booster="2.5">United Kingdom</option>
-      <option value="United States" data-relevancy-booster="3.5" data-flag="US" data-alternative-spellings="US USA United States of America">United States</option>
-      <option value="United States Minor Outlying Islands" data-flag="UM" data-alternative-spellings="UM">United States Minor Outlying Islands</option>
-      <option value="Uruguay" data-flag="UY" data-alternative-spellings="UY">Uruguay</option>
-      <option value="Uzbekistan" data-flag="UZ" data-alternative-spellings="UZ Ўзбекистон O'zbekstan O‘zbekiston">Uzbekistan</option>
-      <option value="Vanuatu" data-flag="VU" data-alternative-spellings="VU">Vanuatu</option>
-      <option value="Venezuela" data-flag="VE" data-alternative-spellings="VE">Venezuela</option>
-      <option value="Vietnam" data-flag="VN" data-alternative-spellings="VN Việt Nam" data-relevancy-booster="1.5">Vietnam</option>
-      <option value="Virgin Islands, British" data-flag="VG" data-alternative-spellings="VG" data-relevancy-booster="0.5">Virgin Islands, British</option>
-      <option value="Virgin Islands, U.S." data-flag="VI" data-alternative-spellings="VI" data-relevancy-booster="0.5">Virgin Islands, U.S.</option>
-      <option value="Wallis and Futuna" data-flag="WF" data-alternative-spellings="WF" data-relevancy-booster="0.5">Wallis and Futuna</option>
-      <option value="Western Sahara" data-flag="EH" data-alternative-spellings="EH لصحراء الغربية">Western Sahara</option>
-      <option value="Yemen" data-flag="YE" data-alternative-spellings="YE اليمن">Yemen</option>
-      <option value="Zambia" data-flag="ZM" data-alternative-spellings="ZM">Zambia</option>
-      <option value="Zimbabwe" data-flag="ZW" data-alternative-spellings="ZW">Zimbabwe</option>
-    </select>
-
     <input type="submit" value="Submit">
   </form>
 </body>

@@ -30,10 +30,14 @@ THE SOFTWARE.
     'sort-desc': false,
     'autoselect': true,
     'free-insert': false,
+    'default-renderer': '<a><div class="flag-img"><img src="{flag}" /></div><p class="country-name">{name}</p><p class="country-code">+{code}</p><p class="country-price">{currency} {price}</p></a><div style="clear:both"></div>',
+    'contacts': false,
+    'contacts-attr': 'data-contact',
+    'contacts-renderer': '',
     'flags': false,
     'flags-attr': 'data-flag',
     'flags-dir': './flags/',
-    'flags-default': 'LV',
+    'flags-default': 'LV.png',
     'flags-image-selector':'#flag',
     'code': false,
     'code-show': false,
@@ -63,6 +67,7 @@ THE SOFTWARE.
       return $select_field.hide();
     },
     insert_text_field: function( context ) {
+        console.log(context);
       var $text_field = $( "<input></input>" );
       if ( settings['copy-attributes-to-text-field'] ) {
         var attrs = {};
@@ -158,6 +163,16 @@ THE SOFTWARE.
               option['weight'] = weight;
             } else {
               option['weight'] = number_of_options;
+            }
+          }
+
+          // is contact or not
+          if ( settings['contacts'] ) {
+            var contact = $option.attr( settings['contacts-attr'] );
+            if ( contact ) {
+              option['contact'] = true;
+            } else {
+              option['contact'] = false;
             }
           }
 
@@ -274,7 +289,20 @@ THE SOFTWARE.
             option_score = option_score * option['relevancy-score-booster'];
             option['relevancy-score'] = option_score;
           }
-          return (!term || matchers.length === partial_matches );
+
+          if (context.settings['contacts']) {
+
+              if (option['contact']) {
+                  contact = true;
+              } else {
+                  contact = false;
+              }
+
+          } else {
+              contact = false;
+          }
+
+          return ( (!term && !contact) || ((matchers.length === partial_matches) && term) );
         });
 
       }
@@ -302,7 +330,7 @@ THE SOFTWARE.
           // changing flag
         if (context.settings['flags'] && (typeof (option) !== 'undefined') )
         {
-            $(context.settings['flags-image-selector']).attr('src', context.settings['flags-dir'] + option['flag'] + '.png');
+            $(context.settings['flags-image-selector']).attr('src', context.settings['flags-dir'] + option['flag']);
         }
       }
       // update the select field value using either selected option or current input in the text field
@@ -386,38 +414,27 @@ THE SOFTWARE.
         search: function (event, ui) {
         }
       }).data( "autocomplete" )._renderItem = function( ul, item ) {
-          if (context.settings['flags'] && context.settings['code'] && context.settings['price'])
-          {
-                return $( "<li>" )
-                    .data( "item.autocomplete", item )
-                    .append( "<a><div class=\"flag-img\"><img src=\""+context.settings['flags-dir']+item.flag+".png\" /></div><p class=\"country-name\">"+item.text+"</p><p class=\"country-code\">+"+item.code+"</p><p class=\"country-price\">"+context.settings['price-currency']+' '+item.price+"</p></a><div style=\"clear:both\"></div>")
-                    .appendTo( ul );
-          } else if (context.settings['flags'] && context.settings['code'] && !context.settings['price']) {
-                return $( "<li>" )
-                    .data( "item.autocomplete", item )
-                    .append( "<a><div class=\"flag-img\"><img src=\""+context.settings['flags-dir']+item.flag+".png\" /></div><p class=\"country-name\">"+item.text+"</p><p class=\"country-code\">+"+item.code+"</p></a><div style=\"clear:both\"></div>")
-                    .appendTo( ul );
-          } else if (context.settings['flags'] && !context.settings['code']  && !context.settings['price']) {
-                return $( "<li>" )
-                    .data( "item.autocomplete", item )
-                    .append( "<a><div class=\"flag-img\"><img src=\""+context.settings['flags-dir']+item.flag+".png\" /></div><p class=\"country-name\">"+item.text+"</p><p class=\"country-price\">"+context.settings['price-currency']+' '+item.price+"</p></a><div style=\"clear:both\"></div>")
-                    .appendTo( ul );
-          } else if (!context.settings['flags'] && context.settings['code']  && context.settings['price']) {
-                return $( "<li>" )
-                    .data( "item.autocomplete", item )
-                    .append( "<a><p class=\"country-name\">"+item.text+"</p><p class=\"country-code\">+"+item.code+"</p><p class=\"country-price\">"+context.settings['price-currency']+' '+item.price+"</p></a><div style=\"clear:both\"></div>")
-                    .appendTo( ul );
-          } else if (!context.settings['flags'] && !context.settings['code']  && context.settings['price']) {
-                return $( "<li>" )
-                    .data( "item.autocomplete", item )
-                    .append( "<a><p class=\"country-name\">"+item.text+"</p><p class=\"country-price\">"+context.settings['price-currency']+' '+item.price+"</p></a><div style=\"clear:both\"></div>")
-                    .appendTo( ul );
-          } else {
-                  return $( "<li>" )
-                    .data( "item.autocomplete", item )
-                    .append( "<a><p class=\"country-name\">"+item.text+"</p></a><div style=\"clear:both\"></div>")
-                    .appendTo( ul );
-          }
+
+        var map = [
+            ['name',item.text],
+            ['code',item.code],
+            ['val',item.label],
+            ['price',item.price],
+            ['currency',context.settings['price-currency']],
+            ['flag',context.settings['flags-dir']+item.flag],
+        ];
+
+        if (context.settings['contacts'] && (context.settings['contacts-renderer'].length > 0) && item.contact) {
+            var renderedHTML = patternGenerator(context.settings['contacts-renderer'], map);
+        } else {
+            var renderedHTML = patternGenerator(context.settings['default-renderer'], map);
+        }
+
+        return $( "<li>" )
+            .data( "item.autocomplete", item )
+            .append( renderedHTML )
+            .appendTo( ul );
+
       };
       // force refresh value of select field when form is submitted
       context.$text_field.parents('form:first').submit(function(){
@@ -438,6 +455,41 @@ THE SOFTWARE.
       }
     }
   };
+
+    function patternGenerator(pattern, mapvars) {
+        var tokens = null;
+        tokens = pattern.split('');
+        var stack = [];
+
+        while(tokens.length) {
+            var token = tokens[0];
+            if (token == "{") {
+                tokens.shift();
+                var search = [];
+                do {
+                    var selectedToken = tokens.shift();
+                    search.push(selectedToken);
+                    var token = tokens[0];
+                } while (token != '}');
+                tokens.shift();
+
+                search = search.join('');
+
+                // translate search to vars
+                for (var i = 0; i < mapvars.length; i++)
+                {
+                    if(mapvars[i][0] == search) {
+                        search = mapvars[i][1];
+                    }
+                }
+                stack.push(search);
+            } else {
+                stack.push(tokens.shift());
+            }
+        }
+
+        return stack.join('');
+    }
 
   $.fn.selectToAutocomplete = function( method ) {
     if ( public_methods[method] ) {
