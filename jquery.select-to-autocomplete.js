@@ -67,7 +67,6 @@ THE SOFTWARE.
       return $select_field.hide();
     },
     insert_text_field: function( context ) {
-        console.log(context);
       var $text_field = $( "<input></input>" );
       if ( settings['copy-attributes-to-text-field'] ) {
         var attrs = {};
