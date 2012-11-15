@@ -170,9 +170,9 @@ THE SOFTWARE.
           if ( settings['contacts'] ) {
             var contact = $option.attr( settings['contacts-attr'] );
             if ( contact ) {
-              option['contact'] = true;
+              option['contact'] = contact;
             } else {
-              option['contact'] = false;
+              option['contact'] = contact;
             }
           }
 
@@ -420,6 +420,7 @@ THE SOFTWARE.
             ['code',item.code],
             ['val',item.label],
             ['price',item.price],
+            ['avatar',item.contact],
             ['currency',context.settings['price-currency']],
             ['flag',context.settings['flags-dir']+item.flag],
         ];
