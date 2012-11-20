@@ -19,16 +19,17 @@
                   'code': true,
                   'price': true,
                   'price-default': '0.10',
+                  'relevancy-sorting': true,
                   'price-currency': '&euro;',
                   source: function (request, response) {
                         if (request.term && typeof(response[0]) !== 'undefined' ) {
                           // chosen country
-                          console.log(response[0]);
+                         console.log(response[0]);
                       }
                   },
                   select: function (event, ui) {
                         // chosen country
-                      console.log(ui.item);
+                         console.log(ui.item);
                   }
           });
 
@@ -239,6 +240,7 @@
       <option value="Japan" data-flag="JP.png" data-alternative-spellings="JP Nippon Nihon 日本" data-relevancy-booster="2.5">Japan</option>
       <option value="Jersey" data-flag="JE.png" data-alternative-spellings="JE" data-relevancy-booster="0.5">Jersey</option>
       <option value="Jordan" data-flag="JO.png" data-alternative-spellings="JO الأردن">Jordan</option>
+      <option value="+77" data-price="0.17" data-code="77" data-flag="KZ.png" data-alternative-spellings="KZ Казахстан" data-relevancy-booster="0.5">Казахстан</option>
       <option value="Kazakhstan" data-flag="KZ.png" data-alternative-spellings="KZ Қазақстан Казахстан">Kazakhstan</option>
       <option value="Kenya" data-flag="KE.png" data-alternative-spellings="KE">Kenya</option>
       <option value="Kiribati" data-flag="KI.png" data-alternative-spellings="KI">Kiribati</option>
@@ -308,6 +310,7 @@
       <option value="Réunion" data-flag="RE.png" data-alternative-spellings="RE Reunion">Réunion</option>
       <option value="Romania" data-flag="RO.png" data-alternative-spellings="RO Rumania Roumania România">Romania</option>
       <option value="Russian Federation" data-flag="RU.png" value="+7" data-code="7" data-price="0.18" data-alternative-spellings="RU Rossiya Российская Россия" data-relevancy-booster="2.5">Russian Federation</option>
+      <option value="+7" data-price="0.12" data-code="7" data-flag="ru.png" data-alternative-spellings="RU Россия" data-relevancy-booster="0.5">Россия</option>
       <option value="Rwanda" data-flag="RW.png" data-alternative-spellings="RW">Rwanda</option>
       <option value="Saint Barthélemy" data-flag="BL.png" data-alternative-spellings="BL St. Barthelemy">Saint Barthélemy</option>
       <option value="Saint Helena" data-flag="SH.png" data-alternative-spellings="SH St.">Saint Helena</option>

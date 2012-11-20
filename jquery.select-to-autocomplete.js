@@ -55,7 +55,7 @@ THE SOFTWARE.
     'autocomplete-plugin': 'jquery_ui',
     'relevancy-sorting': true,
     'relevancy-sorting-partial-match-value': 2,
-    'relevancy-sorting-strict-match-value': 5,
+    'relevancy-sorting-strict-match-value': 8,
     'relevancy-sorting-booster-attr': 'data-relevancy-booster',
     handle_invalid_input: function( context ) {
       if (!settings['free-insert'])
@@ -144,10 +144,10 @@ THE SOFTWARE.
           }
 
           // prepare the 'matches' string which must be filtered on later
-          option['matches'] = option['label'];
+          option['matches'] = '';
           var alternative_spellings = $option.attr( settings['alternative-spellings-attr'] );
           if ( alternative_spellings ) {
-            option['matches'] += ' ' + alternative_spellings;
+            option['matches'] += alternative_spellings;
             // adding international code to matches
             if (code)
             {
@@ -255,12 +255,11 @@ THE SOFTWARE.
             var matcher = {};
             matcher['partial'] = new RegExp( $.ui.autocomplete.escapeRegex( split_term[i] ), "i" );
             if ( context.settings['relevancy-sorting'] ) {
-              matcher['strict'] = new RegExp( "^" + $.ui.autocomplete.escapeRegex( split_term[i] ), "i" );
+              matcher['strict'] = new RegExp( "^" + $.ui.autocomplete.escapeRegex( split_term[i] )+ '$', "i" );
             }
             matchers.push( matcher );
           }
         };
-
         return $.grep( context.options, function( option ) {
           var partial_matches = 0;
           if ( context.settings['relevancy-sorting'] ) {
@@ -271,6 +270,7 @@ THE SOFTWARE.
             if ( matchers[i]['partial'].test( option.matches ) ) {
               partial_matches++;
             }
+
             if ( context.settings['relevancy-sorting'] ) {
               for (var q=0; q < split_option_matches.length; q++) {
                 if ( matchers[i]['strict'].test( split_option_matches[q] ) ) {
@@ -287,6 +287,7 @@ THE SOFTWARE.
               option_score += context.settings['relevancy-sorting-strict-match-value'];
             }
             option_score = option_score * option['relevancy-score-booster'];
+
             option['relevancy-score'] = option_score;
           }
 
@@ -310,7 +311,8 @@ THE SOFTWARE.
       // simple bubblesort, because JS sort function is not working properly in Chrome
       var bubbleSort = function (arr)
       {
-          var swapped;
+
+        var swapped;
         do {
             swapped = false;
             for (var i=0; i < arr.length-1; i++) {
@@ -396,10 +398,10 @@ THE SOFTWARE.
           response( filtered_options );
 
           if (typeof(filtered_options[0]) == 'undefined' && request.term) {
-              for (var k = 5; k > 1; k--) {
-                  var filtered_options = filter_options( request.term.substring(0,k) );
-                  if (typeof (filtered_options[0]) != 'undefined') {
-                      break;
+              for (var k = 1; k < 6; k++) {
+                  var filtered_options_temp = filter_options( request.term.substring(0,k) );
+                  if (typeof (filtered_options_temp[0]) != 'undefined') {
+                      filtered_options = bubbleSort(filtered_options_temp);
                   }
               }
           }
