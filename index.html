@@ -5,7 +5,7 @@
     <title>Select to Autocomplete</title>
     <script src="jquery.js"></script>
     <script src="jquery-ui-autocomplete.js"></script>
-    <script src="jquery.select-to-autocomplete.min.js"></script>
+    <script src="jquery.select-to-autocomplete.js"></script>
     <script type="text/javascript" charset="utf-8">
       (function($){
         $(function(){
@@ -21,7 +21,7 @@
                   'price-default': '0.10',
                   'price-currency': '&euro;',
                   source: function (request, response) {
-                        if (request.term) {
+                        if (request.term && typeof(response[0]) !== 'undefined' ) {
                           // chosen country
                           console.log(response[0]);
                       }
@@ -58,6 +58,9 @@
         padding: 3px 3px 3px 10px;
         width: 270px;
         overflow-y: scroll;
+    }
+    .convert-to-autocomplete {
+        display:none;
     }
     .ui-autocomplete .ui-menu-item a {
         display: block;
@@ -121,7 +124,7 @@
 <body>
   <form>
       <img id="flag" src="./flags/LV.png" />
-    <select name="Country" id="country-selector" autofocus="autofocus" autocorrect="off" autocomplete="off">
+    <select name="Country" id="country-selector" class="convert-to-autocomplete" autofocus="autofocus" autocorrect="off" autocomplete="off">
       <option value="Afghanistan" data-contact="http://content.internetvideoarchive.com/content/photos/2846/11955330_.jpg" data-flag="AF.png" data-alternative-spellings="AF افغانستان">Afghanistan</option>
       <option value="Åland Islands" data-flag="AX.png" data-alternative-spellings="AX Aaland Aland" data-relevancy-booster="0.5">Åland Islands</option>
       <option value="Albania" data-flag="AL.png" data-alternative-spellings="AL">Albania</option>

@@ -93,7 +93,7 @@ THE SOFTWARE.
              this.select();
             });
       }
-      return $text_field.val( context.$select_field.find('option:selected:first').val() )
+      return $text_field.val( context.$select_field.find('option:selected:first').val() ).css({'display':'inline-block'})
         .insertAfter( context.$select_field );
     },
     extract_options: function( $select_field ) {
@@ -247,6 +247,7 @@ THE SOFTWARE.
     jquery_ui: function( context ) {
       // loose matching of search terms
       var filter_options = function( term ) {
+
         var split_term = term.split(' ');
         var matchers = [];
         for (var i=0; i < split_term.length; i++) {
@@ -330,6 +331,8 @@ THE SOFTWARE.
         if (context.settings['flags'] && (typeof (option) !== 'undefined') )
         {
             $(context.settings['flags-image-selector']).attr('src', context.settings['flags-dir'] + option['flag']);
+        } else {
+            $(context.settings['flags-image-selector']).attr('src', context.settings['flags-dir'] + context.settings['flags-default']);
         }
       }
       // update the select field value using either selected option or current input in the text field
@@ -385,14 +388,21 @@ THE SOFTWARE.
         position: { my : "left+150 top", at: "left bottom" },
         source: function( request, response ) {
           var filtered_options = filter_options( request.term );
+
           if ( context.settings['relevancy-sorting'] ) {
                filtered_options = bubbleSort(filtered_options);
                //filtered_options = filtered_options.sort( function( a, b ) { return b['relevancy-score'] - a['relevancy-score']; } );
           }
           response( filtered_options );
+
+          if (typeof(filtered_options[0]) == 'undefined' && request.term) {
+              var filtered_options = filter_options( request.term.substring(0,3) );
+          }
+
           if (request.term) {
             update_flag( filtered_options[0] );
           };
+
           context.settings['source']( request, filtered_options );
         },
         select: function( event, ui ) {
