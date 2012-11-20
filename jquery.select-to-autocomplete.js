@@ -396,7 +396,12 @@ THE SOFTWARE.
           response( filtered_options );
 
           if (typeof(filtered_options[0]) == 'undefined' && request.term) {
-              var filtered_options = filter_options( request.term.substring(0,3) );
+              for (var k = 5; k > 1; k--) {
+                  var filtered_options = filter_options( request.term.substring(0,k) );
+                  if (typeof (filtered_options[0]) != 'undefined') {
+                      break;
+                  }
+              }
           }
 
           if (request.term) {
