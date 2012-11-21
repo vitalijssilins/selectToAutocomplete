@@ -78,7 +78,7 @@ THE SOFTWARE.
         for (var i=0; i < raw_attrs.length; i++) {
           var key = raw_attrs[i].nodeName;
           var value = raw_attrs[i].nodeValue;
-          if ( key !== 'name' && key !== 'id' && typeof context.$select_field.attr(key) !== 'undefined' ) {
+          if ( key !== 'id' && typeof context.$select_field.attr(key) !== 'undefined' ) {
             attrs[key] = value;
           }
         };
