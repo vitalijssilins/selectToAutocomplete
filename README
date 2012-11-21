@@ -5,7 +5,6 @@ Additional options:
 'default-renderer': '<a><div class="flag-img"><img src="{flag}" /></div><p class="country-name">{name}</p><p class="country-code">+{code}</p><p class="country-price">{currency} {price}</p></a><div style="clear:both"></div>', // default renderer, you can use attributes {flag}, {name}, {code}, {price}, {currency}
 'contacts': false, // do we have also contacts in autocomplete?
 'contacts-attr': 'data-contact', // contact attribute, everything put here will be rendered as {avatar} in custom renderer
-'contacts-default': '', // default {avatar}
 'contacts-renderer': '', // renderer for contacts, additional {avatar} is avalaible
 'contacts-category-attr': 'data-category', // additional variable for contacts renderer {category}
 'contacts-category-default': '', // default {category}
