@@ -30,6 +30,7 @@ THE SOFTWARE.
     'sort-desc': false,
     'autoselect': true,
     'free-insert': false,
+    'input-name': 'autocomplete-input',
     'default-renderer': '<a><div class="flag-img"><img src="{flag}" /></div><p class="country-name">{name}</p><p class="country-code">+{code}</p><p class="country-price">{currency} {price}</p></a><div style="clear:both"></div>',
     'input-additional-attr':'',
     'contacts': false,
@@ -78,12 +79,16 @@ THE SOFTWARE.
         for (var i=0; i < raw_attrs.length; i++) {
           var key = raw_attrs[i].nodeName;
           var value = raw_attrs[i].nodeValue;
-          if ( key !== 'id' && typeof context.$select_field.attr(key) !== 'undefined' ) {
+          if ( key !== 'name' && key !== 'id' && typeof context.$select_field.attr(key) !== 'undefined' ) {
             attrs[key] = value;
           }
         };
         $text_field.attr( attrs );
       }
+      var additional_attrs = {};
+      additional_attrs['name'] = settings['input-name'];
+      $text_field.attr( additional_attrs );
+
       $text_field.blur(function() {
         var valid_values = context.$select_field.find('option').map(function(i, option) { return $(option).val(); });
         if ( !($text_field.val() in valid_values) && typeof settings['handle_invalid_input'] === 'function' ) {
