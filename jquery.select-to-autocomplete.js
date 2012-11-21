@@ -31,9 +31,13 @@ THE SOFTWARE.
     'autoselect': true,
     'free-insert': false,
     'default-renderer': '<a><div class="flag-img"><img src="{flag}" /></div><p class="country-name">{name}</p><p class="country-code">+{code}</p><p class="country-price">{currency} {price}</p></a><div style="clear:both"></div>',
+    'input-additional-attr':'',
     'contacts': false,
     'contacts-attr': 'data-contact',
+    /*'contacts-default': '',*/
     'contacts-renderer': '',
+    'contacts-category-attr': 'data-category',
+    'contacts-category-default': '',
     'flags': false,
     'flags-attr': 'data-flag',
     'flags-dir': './flags/',
@@ -173,7 +177,14 @@ THE SOFTWARE.
             } else {
               option['contact'] = contact;
             }
+            var contactCategory = $option.attr( settings['contacts-category-attr'] );
+            if ( contactCategory ) {
+                option['category'] = contactCategory;
+            } else {
+                option['category'] = settings['contacts-category-default'];
+            }
           }
+
 
           // add relevancy score
           if ( settings['relevancy-sorting'] ) {
@@ -350,9 +361,9 @@ THE SOFTWARE.
             {
                 if (option['code'])
                 {
-                    $(context.settings['code-selector']).text('+' + option['code']);
+                    $(context.settings['code-selector']).val(option['code']);
                 } else {
-                    $(context.settings['code-selector']).text('+' + context.settings['code-default']);
+                    $(context.settings['code-selector']).val(context.settings['code-default']);
                 }
 
             }
@@ -437,6 +448,7 @@ THE SOFTWARE.
             ['val',item.label],
             ['price',item.price],
             ['avatar',item.contact],
+            ['category',item.category],
             ['currency',context.settings['price-currency']],
             ['flag',context.settings['flags-dir']+item.flag],
         ];

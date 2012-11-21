@@ -15,8 +15,14 @@
                   'flags': true,
                   'flags-image-selector': '#flag',
                   'contacts': true,
-                  'contacts-renderer': '<a><div class="flag-img"><img src="{avatar}" width="32" /></div><p class="country-name">Contact - {name}</p><p class="country-code">+{code}</p><p class="country-price">{currency} {price}</p></a><div style="clear:both"></div>',
+                  'contacts-renderer': '<a>{category}<div class="flag-img"><img src="{avatar}" width="32" /></div><p class="country-name">Contact - {name}</p><p class="country-code">+{code}</p><p class="country-price">{currency} {price}</p></a><div style="clear:both"></div>',
+                  'contacts-category-attr': 'data-category',
+                  'contacts-category-default': 'Mobile',
                   'code': true,
+                  'code-show': true,
+                  'code-default': '371',
+                  'code-attr': 'data-code',
+                  'code-selector':'.selectto',
                   'price': true,
                   'price-default': '0.10',
                   'relevancy-sorting': true,
@@ -124,10 +130,11 @@
 </head>
 <body>
   <form>
+        <input type="text" class="selectto" value="371" />
       <img id="flag" src="./flags/LV.png" />
     <select name="Country" id="country-selector" class="convert-to-autocomplete" autofocus="autofocus" autocorrect="off" autocomplete="off">
       <option value="Afghanistan" data-contact="http://content.internetvideoarchive.com/content/photos/2846/11955330_.jpg" data-flag="AF.png" data-alternative-spellings="AF افغانستان">Afghanistan</option>
-      <option value="Åland Islands" data-flag="AX.png" data-alternative-spellings="AX Aaland Aland" data-relevancy-booster="0.5">Åland Islands</option>
+      <option value="Åland Islands" data-contact="http://content.internetvideoarchive.com/content/photos/2846/11955330_.jpg" data-category="aaaa" data-flag="AX.png" data-alternative-spellings="AX Aaland Aland" data-relevancy-booster="0.5">Åland Islands</option>
       <option value="Albania" data-flag="AL.png" data-alternative-spellings="AL">Albania</option>
       <option value="Algeria" data-flag="DZ.png" data-alternative-spellings="DZ الجزائر">Algeria</option>
       <option value="American Samoa" data-flag="AS.png" data-alternative-spellings="AS" data-relevancy-booster="0.5">American Samoa</option>
