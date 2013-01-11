@@ -39,6 +39,10 @@ THE SOFTWARE.
     'contacts-renderer': '',
     'contacts-category-attr': 'data-category',
     'contacts-category-default': '',
+    'contacts-price-attr': 'data-contacts-price',
+    'contacts-price-default': '',
+    'country-attr': 'data-country',
+    'country-default': '',    
     'flags': false,
     'flags-attr': 'data-flag',
     'flags-dir': './flags/',
@@ -118,8 +122,8 @@ THE SOFTWARE.
           'label': $option.val(),
           'text': $option.text()
         }
-        if ( settings['remove-valueless-options'] && option['real-value'] === '') {
-          // skip options without a value
+        if ( (settings['remove-valueless-options'] && option['real-value'] === '') || (option['text'] === '')) {
+          // skip options without a value && text
         } else {
 
           if (settings['flags']) {
@@ -188,6 +192,24 @@ THE SOFTWARE.
             } else {
                 option['category'] = settings['contacts-category-default'];
             }
+            
+            var contactsPrice = $option.attr( settings['contacts-price-attr'] );
+            
+            if ( contactsPrice ) {
+                option['contactsprice'] = contactsPrice;
+            } else {
+                option['contactsprice'] = settings['contacts-price-default'];
+            }   
+
+            var country = $option.attr( settings['country-attr'] );
+            
+            if ( country ) {
+                option['country'] = country;
+            } else {
+                option['country'] = settings['country-default'];
+            }       
+            
+            
           }
 
 
@@ -405,28 +427,33 @@ THE SOFTWARE.
         'autoFocus': true,
         position: { my : "left+150 top", at: "left bottom" },
         source: function( request, response ) {
-          var filtered_options = filter_options( request.term );
+          
+          if (jQuery.inArray(request.term, ['0','00','+']) == -1) {
 
-          if ( context.settings['relevancy-sorting'] ) {
-               filtered_options = bubbleSort(filtered_options);
-               //filtered_options = filtered_options.sort( function( a, b ) { return b['relevancy-score'] - a['relevancy-score']; } );
-          }
-          response( filtered_options );
+            var filtered_options = filter_options( request.term );
 
-          if (typeof(filtered_options[0]) == 'undefined' && request.term) {
-              for (var k = 1; k < 6; k++) {
-                  var filtered_options_temp = filter_options( request.term.substring(0,k) );
-                  if (typeof (filtered_options_temp[0]) != 'undefined') {
-                      filtered_options = bubbleSort(filtered_options_temp);
-                  }
-              }
-          }
+            if ( context.settings['relevancy-sorting'] ) {
+                 filtered_options = bubbleSort(filtered_options);
+                 //filtered_options = filtered_options.sort( function( a, b ) { return b['relevancy-score'] - a['relevancy-score']; } );
+            }
+            response( filtered_options );
 
-          if (request.term) {
+            if (typeof(filtered_options[0]) == 'undefined' && request.term) {
+                for (var k = 1; k < 6; k++) {
+                    var filtered_options_temp = filter_options( request.term.substring(0,k) );
+                    if (typeof (filtered_options_temp[0]) != 'undefined') {
+                        filtered_options = bubbleSort(filtered_options_temp);
+                    }
+                }
+            }
+
+          if (request.term)
+          {
             update_flag( filtered_options[0] );
-          };
+          }          
 
           context.settings['source']( request, filtered_options );
+          };
         },
         select: function( event, ui ) {
           update_select_value( ui.item );
@@ -450,12 +477,14 @@ THE SOFTWARE.
         var map = [
             ['name',item.text],
             ['code',item.code],
+            ['contacts-price',item.contactsprice],
             ['val',item.label],
             ['price',item.price],
             ['avatar',item.contact],
             ['category',item.category],
             ['currency',context.settings['price-currency']],
-            ['flag',context.settings['flags-dir']+item.flag],
+            ['flag', context.settings['flags-dir']+item.flag ],
+            ['country', item.country]
         ];
 
         if (context.settings['contacts'] && (context.settings['contacts-renderer'].length > 0) && item.contact) {
